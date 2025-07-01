@@ -8,7 +8,7 @@ const UserProfile = () => {
     <Box
       sx={{
         position: 'relative',
-        p: 2,
+        p: 1.3,
         display: 'flex',
         alignItems: 'center',
         gap: 2,
@@ -32,7 +32,7 @@ const UserProfile = () => {
 
       <Avatar
         alt="Anita Cruz"
-        src="/assets/images/Frame 1149.png"
+        src="/assets/images/Profile.svg"
         sx={{
           width: 48,
           height: 48,

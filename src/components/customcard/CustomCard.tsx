@@ -1,9 +1,11 @@
 
-import { Box, Typography, LinearProgress, Avatar, Stack  } from '@mui/material';
+import { Box, Typography, LinearProgress, Avatar, Stack, Button  } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+
 
 function ImageCard() {
 return (
@@ -121,7 +123,57 @@ return (
         <Typography> Admin</Typography>
         <Typography> Delete</Typography>
         <Typography> Edit</Typography>
+        <p>dghjklsdfghj</p>
     </Stack>
+    </Box>
+);
+}
+
+function DesignReviewCard() {
+return (
+    <Box
+    sx={{
+        border: '1px solid #e0e0e0',
+        borderRadius: 2,
+        p: 1,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        width: '30%',
+        position: 'relative',
+    }}
+    >
+    <Box>
+        <Typography variant="subtitle1" fontWeight={600}>
+        Design Review
+        </Typography>
+
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+        Additional text
+        </Typography>
+
+        <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 1 }}>
+        <WorkOutlineIcon fontSize="small" />
+        <Typography variant="caption" color="text.secondary">
+            Monday, Jul 4, 2022
+        </Typography>
+        </Stack>
+    </Box>
+
+      {/* Top Right Button */}
+    <Button
+        variant="outlined"
+        size="small"
+        sx={{
+        borderStyle: 'dashed',
+        position: 'absolute',
+        fontSize: '0.75rem',
+        top: 16,
+        right: 16,
+        }}
+    >
+    12 am to 2 pm
+    </Button>
     </Box>
 );
 }
@@ -133,6 +185,7 @@ return (
     <BentoCard />
     <PhoneCard />
     <UserCard />
+    <DesignReviewCard />
     </div>
 );
 }

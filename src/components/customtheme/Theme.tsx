@@ -36,9 +36,9 @@ declare module "@mui/material/styles" {
 // ✅ Define your base theme tokens
 const baseTheme = {
   palette: {
-    primary: { main: "#6E39CB" },
+    primary: { main: "#5529A0" },
     text: {
-      primary: "#3A3541",
+      primary: "#6E39CB",
       secondary: "#89868D",
       disabled: "#B4B2B7",
     },
@@ -58,7 +58,7 @@ const baseTheme = {
     },
   },
   gradients: {
-    primary: "linear-gradient(#C2A1FD 0%, #9154FD 100%)",
+    primary: "linear-gradient(#D6C8FE 0%)",
   },
   typography: {
     fontFamily: '"Lato", sans-serif',

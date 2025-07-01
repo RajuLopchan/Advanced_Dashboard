@@ -1,5 +1,5 @@
 import { Drawer, List, Box } from '@mui/material';
-import SidebarGroup from './SidebarGroup';
+import SidebarGroup from './SidebarItem';
 import UserProfile from './UserProfile';
 
 const Sidebar = () => {
@@ -11,24 +11,60 @@ const Sidebar = () => {
           backgroundColor: '#ffffff',
           boxSizing: 'border-box',
           border: '1px solid #DBDCDE',
-          display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100vh',
         },
       }}
     >
-      <Box sx={{ m: 4, display: 'flex', justifyContent: 'center' }}>
-        <img src="/assets/images/logo.svg" alt="Logo" style={{ width: 100, height: 80 }} />
+      {/* Fixed logo at top */}
+      <Box
+        sx={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 1,
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          my: 3,
+          backgroundColor: '#ffffff',
+        }}
+      >
+        <img src="/assets/images/logo.svg" alt="Logo" style={{ width: 90, height: 60 }} />
       </Box>
 
-      <Box>
-        <List sx={{ m: 2, width: 250 }}>
+      {/* Sidebar content with top padding to avoid overlap */}
+      <Box
+        sx={{
+          flex: 1,
+          width: '100%',
+          overflowY: 'auto',
+          // Hide scrollbar but keep scroll functionality
+        '&::-webkit-scrollbar': {
+        display: 'none',
+    },
+        }}
+      >
+        <List sx={{ m: 1, width: 240 }}>
           <SidebarGroup />
         </List>
+      </Box>
 
-        <Box sx={{ mt: '190px' }}>
-          <UserProfile />
-        </Box>
+      {/* Fixed UserProfile at bottom */}
+      <Box
+        sx={{
+          position: 'sticky',
+          bottom: 0,
+          zIndex: 1,
+          width: '100%',
+          backgroundColor: '#ffffff',
+          display: 'flex',
+          justifyContent: 'center',
+          mb: 1,
+        }}
+      >
+        <UserProfile />
       </Box>
     </Drawer>
   );
