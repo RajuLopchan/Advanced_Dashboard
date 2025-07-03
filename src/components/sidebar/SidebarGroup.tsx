@@ -19,6 +19,9 @@ import {
 } from '@mui/icons-material';
 import baseTheme from '../customtheme/Theme';
 
+// 🚨 Added import for navigation
+import { useNavigate } from 'react-router-dom';
+
 type SidebarItemProps = {
   label: string;
   icon?: ReactNode;
@@ -41,36 +44,48 @@ const SidebarItem = ({
   nestedLevel2,
 }: SidebarItemProps) => (
   <ListItemButton
-  onClick={onClick}
-  selected={active}
-  sx={{
-    my: 0.5,
-    borderRadius: 2,
-    p: 0.8,
-    pl: nestedLevel2 ? 8 : nested ? 5 : expandable ? 0.8 : 5,
-    ...(active && {
-      background: !nested && !nestedLevel2 ? baseTheme.gradients.primary : 'none !important',
-      color: baseTheme.palette.primary.main,
-      backgroundColor: !nested && !nestedLevel2 ? undefined : 'transparent !important',
-    }),
-    '&:hover': {
-      backgroundColor: !nested && !nestedLevel2
-        ? baseTheme.gradients.primary
-        : 'transparent !important',
-    },
-    '& .MuiListItemIcon-root': {
-      minWidth: 'auto',
-      mr: 1.2,
-      color: 'inherit',
-    },
-  }}
->
+    onClick={onClick}
+    selected={active}
+    sx={{
+      my: 0.5,
+      borderRadius: 2,
+      p: 0.8,
+      pl: nestedLevel2 ? 8 : nested ? 5 : expandable ? 0.8 : 5,
 
-  {icon && <ListItemIcon>{icon}</ListItemIcon>}
-  <ListItemText primary={label} />
-  {expandable && (expanded ? <ExpandLess /> : <ExpandMore />)}
-</ListItemButton>
+      color: '#000',
 
+      ...(active && {
+        background: !nested && !nestedLevel2 ? baseTheme.gradients.primary : 'none !important',
+        color: baseTheme.palette.primary.main,
+        backgroundColor: !nested && !nestedLevel2 ? undefined : 'transparent !important',
+      }),
+
+      '&:hover': {
+        backgroundColor: !nested && !nestedLevel2
+          ? baseTheme.gradients.primary
+          : 'transparent !important',
+      },
+
+      '& .MuiListItemIcon-root': {
+        minWidth: 'auto',
+        mr: 1.2,
+        color: 'inherit',
+      },
+    }}
+  >
+    {icon && <ListItemIcon>{icon}</ListItemIcon>}
+    <ListItemText
+      primary={label}
+      slotProps={{
+        primary: {
+          sx: {
+            fontWeight: active ? 'bold' : 'normal',
+          },
+        },
+      }}
+    />
+    {expandable && (expanded ? <ExpandLess /> : <ExpandMore />)}
+  </ListItemButton>
 );
 
 const items = [
@@ -92,7 +107,7 @@ const items = [
       },
       {
         label: 'Projects',
-        children: ['General', 'Timeline', 'New Project'],
+        children: ['General', 'Timeline', 'New Project'], // ✅ Ensure 'New Project' matches routing condition
       },
       'Pricing Page',
       'Charts',
@@ -119,31 +134,53 @@ const items = [
 
 const SidebarGroup = () => {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
-  const [activeItem, setActiveItem] = useState<string | null>(null);
-  const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
+  const [openSubmenus, setOpenSubmenus] = useState<Record<string, string | null>>({});
 
-  const handleClick = (title: string) => {
+  const [activeGroup, setActiveGroup] = useState<string | null>(null);
+  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [activeChild, setActiveChild] = useState<string | null>(null);
+
+  // 🚨 Initialize navigate hook
+  const navigate = useNavigate();
+
+  const handleGroupClick = (title: string) => {
     setOpenGroup(prev => (prev === title ? null : title));
-    setActiveItem(title);
+    setActiveGroup(title);
+    setActiveSubmenu(null);
+    setActiveChild(null);
   };
 
-  const handleSubmenuClick = (label: string) => {
+  const handleSubmenuClick = (groupTitle: string, submenuLabel: string) => {
     setOpenSubmenus(prev => ({
       ...prev,
-      [label]: !prev[label],
+      [groupTitle]: prev[groupTitle] === submenuLabel ? null : submenuLabel,
     }));
-    setActiveItem(label);
+    setActiveGroup(groupTitle);
+    setActiveSubmenu(submenuLabel);
+    setActiveChild(null);
+  };
+
+  const handleChildClick = (groupTitle: string, submenuLabel: string, childLabel: string) => {
+    setActiveGroup(groupTitle);
+    setActiveSubmenu(submenuLabel);
+    setActiveChild(childLabel);
+
+    // 🚨 Added navigation for 'New Project'
+    if (childLabel === 'New Project') {
+      navigate('/projects/newproject');
+    }
   };
 
   return (
     <>
+      {/* Home Group */}
       <SidebarItem
         label="Home"
         icon={<HomeIcon />}
         expandable
         expanded={openGroup === 'Home'}
-        onClick={() => handleClick('Home')}
-        active={activeItem === 'Home'}
+        onClick={() => handleGroupClick('Home')}
+        active={activeGroup === 'Home'}
       />
       <Collapse in={openGroup === 'Home'}>
         <List component="div">
@@ -152,13 +189,23 @@ const SidebarGroup = () => {
               key={index}
               label={sub}
               nested
-              active={activeItem === sub}
-              onClick={() => setActiveItem(sub)}
+              active={activeChild === sub && activeGroup === 'Home'}
+              onClick={() => {
+                setActiveGroup('Home');
+                setActiveSubmenu(null);
+                setActiveChild(sub);
+
+                // 🚨 Navigate to '/dashboard' route when Dashboard is clicked
+                if (sub === 'Dashboard') {
+                  navigate('/dashboard');
+                }
+              }}
             />
           ))}
         </List>
       </Collapse>
 
+      {/* Other Groups */}
       {items.map(({ title, children, icon }) => (
         <div key={title}>
           <SidebarItem
@@ -166,8 +213,8 @@ const SidebarGroup = () => {
             icon={icon}
             expandable
             expanded={openGroup === title}
-            onClick={() => handleClick(title)}
-            active={activeItem === title}
+            onClick={() => handleGroupClick(title)}
+            active={activeGroup === title}
           />
           <Collapse in={openGroup === title}>
             <List component="div">
@@ -178,12 +225,16 @@ const SidebarGroup = () => {
                       key={index}
                       label={sub}
                       nested
-                      active={activeItem === sub}
-                      onClick={() => setActiveItem(sub)}
+                      active={activeChild === sub && activeGroup === title}
+                      onClick={() => {
+                        setActiveGroup(title);
+                        setActiveSubmenu(null);
+                        setActiveChild(sub);
+                      }}
                     />
                   );
                 } else if (typeof sub === 'object') {
-                  const isOpen = openSubmenus[sub.label] || false;
+                  const isOpen = openSubmenus[title] === sub.label;
                   return (
                     <div key={index}>
                       <SidebarItem
@@ -191,8 +242,8 @@ const SidebarGroup = () => {
                         nested
                         expandable
                         expanded={isOpen}
-                        onClick={() => handleSubmenuClick(sub.label)}
-                        active={activeItem === sub.label}
+                        onClick={() => handleSubmenuClick(title, sub.label)}
+                        active={activeSubmenu === sub.label && activeGroup === title}
                       />
                       <Collapse in={isOpen}>
                         <List component="div">
@@ -202,8 +253,12 @@ const SidebarGroup = () => {
                               label={child}
                               nested
                               nestedLevel2
-                              active={activeItem === child}
-                              onClick={() => setActiveItem(child)}
+                              active={
+                                activeChild === child &&
+                                activeSubmenu === sub.label &&
+                                activeGroup === title
+                              }
+                              onClick={() => handleChildClick(title, sub.label, child)}
                             />
                           ))}
                         </List>

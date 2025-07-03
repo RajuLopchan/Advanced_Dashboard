@@ -24,6 +24,7 @@ declare module "@mui/material/styles" {
   interface Theme {
     gradients: {
       primary: string;
+      secondary: string;
     };
   }
   interface ThemeOptions {
@@ -36,7 +37,7 @@ declare module "@mui/material/styles" {
 // ✅ Define your base theme tokens
 const baseTheme = {
   palette: {
-    primary: { main: "#5529A0" },
+    primary: { main: "#6E39CB" },
     text: {
       primary: "#6E39CB",
       secondary: "#89868D",
@@ -59,6 +60,7 @@ const baseTheme = {
   },
   gradients: {
     primary: "linear-gradient(#D6C8FE 0%)",
+    secondary: "linear-gradient(#C2A1FD 0%, #9154FD 100%)",
   },
   typography: {
     fontFamily: '"Lato", sans-serif',

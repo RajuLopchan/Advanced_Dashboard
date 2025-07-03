@@ -1,5 +1,5 @@
 import { Drawer, List, Box } from '@mui/material';
-import SidebarGroup from './SidebarItem';
+import SidebarGroup from './SidebarGroup';
 import UserProfile from './UserProfile';
 
 const Sidebar = () => {
@@ -46,7 +46,7 @@ const Sidebar = () => {
     },
         }}
       >
-        <List sx={{ m: 1, width: 240 }}>
+        <List sx={{ m: 1, width: 253 }}>
           <SidebarGroup />
         </List>
       </Box>

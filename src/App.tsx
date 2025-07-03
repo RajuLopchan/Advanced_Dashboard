@@ -1,34 +1,33 @@
 import { Box } from '@mui/material';
-import Sidebar from './components/sidebar/Sidebar'
-// import CustomCard from './components/customcard/CustomCard';
+import Sidebar from './components/sidebar/Sidebar';
+import Navbar from './components/Navbar/Navbar';
+// import DashboardRightSidebar from './components/sidebar/DashboardRightSidebar';
+import Dashboard from './pages/Dashboard';
 
-// import { BarChart } from "@mui/icons-material";
-// import LineChart from "./components/chart/LineChart";
+// 🚨 ADD these imports for routing
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NewProjectForm from './pages/NewProject';
 
 function App() {
   return (
-    <>
-  {/* <Box>
-      <Inputbox label="Text Input" type="text" />
-      <br /><br />
-      <Inputbox label="Password Input" type="password" />
-      <br /><br />
-      <Inputbox label="Email Address" type="email" />
-      <br /><br />
-      <Inputbox label="Pick a Date" type="date" />
-      <br /><br />
-      <Inputbox label="Multiline Description" type="text" multiline />
-  </Box> */}
+    // 🚨 Wrap your entire layout with <Router>
+    <Router>
+      <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
+        <Sidebar />
 
+        <Box sx={{ display: 'flex', flexDirection: 'column', left: '280px', width: '100%' }}>
+          <Navbar />
 
-  <Box sx={{ p: 2, m:4 }}>
-    <Sidebar />
-    </Box>
-
-  {/* <CustomCard /> */}
-  {/* <BarChart />
-  <LineChart /> */}
-  </>
+          {/* 🚨 Define Routes here */}
+          <Routes>
+            <Route path="/" element={<Dashboard />} /> {/* Default route */}
+            <Route path="/dashboard" element={<Dashboard />} /> {/* Dashboard route */}
+            <Route path="/projects/newproject" element={<NewProjectForm />} />
+            {/* Add other routes here in the future */}
+          </Routes>
+        </Box>
+      </Box>
+    </Router>
   );
 }
 

@@ -15,6 +15,7 @@ const UserProfile = () => {
         backgroundColor: theme.palette.primary.main,
         borderRadius: 3,
         margin: 1,
+        width: '100%',
       }}
     >
       {/* Triple-dot Icon at Top Right */}
