@@ -9,9 +9,6 @@ return (
         p: 2,
         borderRadius: 2,
         boxShadow: 2,
-        width: '100%',
-        height: '550px',
-        position: 'relative',
     }}>
         <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 'bold', ml: 3, mt: 2, color: "#333"}}>
             Active users right now

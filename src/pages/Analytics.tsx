@@ -2,8 +2,7 @@ import {
   Box,
   Typography,
 } from '@mui/material';
-
-const NewProject = () => {
+const Analytics = () => {
   return (
     <Box
       sx={{
@@ -15,9 +14,9 @@ const NewProject = () => {
         p: 2,
       }}
     >
-    <Typography variant="h6">New Project</Typography>
+    <Typography variant="h6">Analytics</Typography>
     </Box>
   );
 };
 
-export default NewProject;
+export default Analytics;

@@ -1,33 +1,35 @@
-import{Box} from '@mui/material'
+import{Box, Grid} from '@mui/material'
 import DashboardCard from '../components/card/DashboardCard'
 import SalesByAgeChart from '../components/charts/SalesByAgeChart'
 import DashboardRightSidebar from '../components/sidebar/DashboardRightSidebar'
 function Dashboard() {
   return (
-     <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
+     <>
+        
           {/* Main scrollable content */}
+          <Grid container spacing={2}>
+            <Grid size={9}>
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
               gap: 3,
-              width: '940px',
               overflowY: 'auto',
               zIndex: 0,
-              p:2,
-              mt: 7
+              pl: 2,
+              width: '100%',
             }}
           >
+
             <DashboardCard />
             <SalesByAgeChart />
           </Box>
+          </Grid>
+          <Grid size={7}>
           <DashboardRightSidebar />
-        </Box>
+          </Grid>
+          </Grid>
+        </>
   )
 }
 

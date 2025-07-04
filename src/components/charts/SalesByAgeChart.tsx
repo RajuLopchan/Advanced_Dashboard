@@ -89,9 +89,7 @@ function SalesByAgeChart() {
         bgcolor: 'white',
         borderRadius: 2,
         boxShadow: 2,
-        width: '100%',
         height: '430px',
-        position: 'relative',
       }}
     >
       <Typography

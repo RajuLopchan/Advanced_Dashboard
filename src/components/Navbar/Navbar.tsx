@@ -19,7 +19,9 @@ const Navbar = () => {
       case "/dashboard":
         return "Dashboard";
       case "/projects/newproject":
-        return "Projet / New Project";
+        return "New Project";
+      case "/analytics":
+        return "Analytics";
       // 👉 Add other routes here as needed
       default:
         return "Page";

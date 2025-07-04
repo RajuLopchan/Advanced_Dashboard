@@ -19,7 +19,7 @@ import {
 } from '@mui/icons-material';
 import baseTheme from '../customtheme/Theme';
 
-// 🚨 Added import for navigation
+//  Import useNavigate for routing
 import { useNavigate } from 'react-router-dom';
 
 type SidebarItemProps = {
@@ -107,7 +107,7 @@ const items = [
       },
       {
         label: 'Projects',
-        children: ['General', 'Timeline', 'New Project'], // ✅ Ensure 'New Project' matches routing condition
+        children: ['General', 'Timeline', 'New Project'],
       },
       'Pricing Page',
       'Charts',
@@ -135,12 +135,10 @@ const items = [
 const SidebarGroup = () => {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, string | null>>({});
-
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const [activeChild, setActiveChild] = useState<string | null>(null);
 
-  // 🚨 Initialize navigate hook
   const navigate = useNavigate();
 
   const handleGroupClick = (title: string) => {
@@ -165,9 +163,15 @@ const SidebarGroup = () => {
     setActiveSubmenu(submenuLabel);
     setActiveChild(childLabel);
 
-    // 🚨 Added navigation for 'New Project'
-    if (childLabel === 'New Project') {
-      navigate('/projects/newproject');
+    // ✅ Routing map for child items
+    const routeMap: Record<string, string> = {
+      'New Project': '/projects/newproject',
+      'Setting': '/account/setting',
+      // ➕ add more mappings here in future
+    };
+
+    if (routeMap[childLabel]) {
+      navigate(routeMap[childLabel]);
     }
   };
 
@@ -195,9 +199,10 @@ const SidebarGroup = () => {
                 setActiveSubmenu(null);
                 setActiveChild(sub);
 
-                // 🚨 Navigate to '/dashboard' route when Dashboard is clicked
                 if (sub === 'Dashboard') {
                   navigate('/dashboard');
+                } else if (sub === 'Analytics') {
+                  navigate('/analytics');
                 }
               }}
             />

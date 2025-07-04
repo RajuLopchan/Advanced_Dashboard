@@ -5,19 +5,22 @@ import UserProfile from './UserProfile';
 const Sidebar = () => {
   return (
     <Drawer
-      variant="permanent"
-      sx={{
-        '& .MuiDrawer-paper': {
-          backgroundColor: '#ffffff',
-          boxSizing: 'border-box',
-          border: '1px solid #DBDCDE',
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100vh',
-        },
-      }}
-    >
+  variant="permanent"
+  sx={{
+    width: 280, // ✅ set width here
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+      width: 280, // ✅ set same width for paper
+      backgroundColor: '#ffffff',
+      boxSizing: 'border-box',
+      border: '1px solid #DBDCDE',
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+    },
+  }}
+>
       {/* Fixed logo at top */}
       <Box
         sx={{
