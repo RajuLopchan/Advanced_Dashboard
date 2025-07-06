@@ -5,15 +5,12 @@ import {
   useTheme
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
-// 🚨 Import useLocation to detect current route
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const theme = useTheme();
-  const location = useLocation(); // ✅ Get current route path
+  const location = useLocation();
 
-  // ✅ Determine title based on pathname
   const getTitle = () => {
     switch (location.pathname) {
       case "/dashboard":
@@ -22,7 +19,7 @@ const Navbar = () => {
         return "New Project";
       case "/analytics":
         return "Analytics";
-      // 👉 Add other routes here as needed
+      // ➕ Add other routes here as needed
       default:
         return "Page";
     }
@@ -32,18 +29,20 @@ const Navbar = () => {
     <Box
       sx={{
         position: 'fixed',
+        top: 0,
         height: 60,
         width: '100%',
         zIndex: theme.zIndex.appBar,
         display: 'flex',
         alignItems: 'center',
-        pl: '315px',
+        pl: '315px', // adjust based on Sidebar width
         gap: 10,
         backgroundColor: theme.palette.grey[100],
+        boxShadow: theme.shadows[1],
       }}
     >
       <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
-        {getTitle()} {/* ✅ Dynamic title based on route */}
+        {getTitle()}
       </Typography>
 
       <Box

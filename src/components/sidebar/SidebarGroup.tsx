@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-
 import {
   List,
   Collapse,
@@ -18,8 +17,6 @@ import {
   ExpandLess,
 } from '@mui/icons-material';
 import baseTheme from '../customtheme/Theme';
-
-//  Import useNavigate for routing
 import { useNavigate } from 'react-router-dom';
 
 type SidebarItemProps = {
@@ -51,21 +48,17 @@ const SidebarItem = ({
       borderRadius: 2,
       p: 0.8,
       pl: nestedLevel2 ? 8 : nested ? 5 : expandable ? 0.8 : 5,
-
       color: '#000',
-
       ...(active && {
         background: !nested && !nestedLevel2 ? baseTheme.gradients.primary : 'none !important',
         color: baseTheme.palette.primary.main,
         backgroundColor: !nested && !nestedLevel2 ? undefined : 'transparent !important',
       }),
-
       '&:hover': {
         backgroundColor: !nested && !nestedLevel2
           ? baseTheme.gradients.primary
           : 'transparent !important',
       },
-
       '& .MuiListItemIcon-root': {
         minWidth: 'auto',
         mr: 1.2,
@@ -78,9 +71,7 @@ const SidebarItem = ({
       primary={label}
       slotProps={{
         primary: {
-          sx: {
-            fontWeight: active ? 'bold' : 'normal',
-          },
+          sx: { fontWeight: active ? 'bold' : 'normal' },
         },
       }}
     />
@@ -93,22 +84,10 @@ const items = [
     title: 'Pages',
     icon: <Description />,
     children: [
-      {
-        label: 'Profile',
-        children: ['Profile Overview', 'Teams', 'All Project'],
-      },
-      {
-        label: 'Users',
-        children: ['Reports', 'New User'],
-      },
-      {
-        label: 'Account',
-        children: ['Setting', 'Billing', 'Invoice', 'Security'],
-      },
-      {
-        label: 'Projects',
-        children: ['General', 'Timeline', 'New Project'],
-      },
+      { label: 'Profile', children: ['Profile Overview', 'Teams', 'All Project'] },
+      { label: 'Users', children: ['Reports', 'New User'] },
+      { label: 'Account', children: ['Setting', 'Billing', 'Invoice', 'Security'] },
+      { label: 'Projects', children: ['General', 'Timeline', 'New Project'] },
       'Pricing Page',
       'Charts',
       'Notification',
@@ -163,11 +142,9 @@ const SidebarGroup = () => {
     setActiveSubmenu(submenuLabel);
     setActiveChild(childLabel);
 
-    // ✅ Routing map for child items
     const routeMap: Record<string, string> = {
       'New Project': '/projects/newproject',
       'Setting': '/account/setting',
-      // ➕ add more mappings here in future
     };
 
     if (routeMap[childLabel]) {
@@ -177,7 +154,6 @@ const SidebarGroup = () => {
 
   return (
     <>
-      {/* Home Group */}
       <SidebarItem
         label="Home"
         icon={<HomeIcon />}
@@ -198,19 +174,13 @@ const SidebarGroup = () => {
                 setActiveGroup('Home');
                 setActiveSubmenu(null);
                 setActiveChild(sub);
-
-                if (sub === 'Dashboard') {
-                  navigate('/dashboard');
-                } else if (sub === 'Analytics') {
-                  navigate('/analytics');
-                }
+                navigate(`/${sub.toLowerCase()}`);
               }}
             />
           ))}
         </List>
       </Collapse>
 
-      {/* Other Groups */}
       {items.map(({ title, children, icon }) => (
         <div key={title}>
           <SidebarItem
