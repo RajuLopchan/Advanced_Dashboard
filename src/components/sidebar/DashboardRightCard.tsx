@@ -1,18 +1,14 @@
-import { Box } from '@mui/material';
+import { Box, Card } from '@mui/material';
 import EarningsCard from '../card/EarningCard';
 import ImpressionCard from '../card/ImpressionCard';
 import EarningsByItemCard from '../card/EarningsByItemCard';
-function DashboardRightSidebar() {
+function DashboardRightCard() {
   return (
     <Box
-     sx={{
-    position: 'fixed',
-    right: 10,
-    top: '70px',
+    sx={{
     display: 'flex',
     flexDirection: 'column',
-    gap: 2,
-    width: 260,
+    gap: 4,
   }}
     >
       <EarningsCard />
@@ -22,4 +18,4 @@ function DashboardRightSidebar() {
   );
 }
 
-export default DashboardRightSidebar;
+export default DashboardRightCard;

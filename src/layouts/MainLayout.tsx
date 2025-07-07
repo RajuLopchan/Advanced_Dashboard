@@ -4,29 +4,24 @@ import Navbar from '../components/Navbar/Navbar';
 import { Box } from '@mui/material';
 
 function MainLayout() {
-  const sidebarWidth = 280; // match with Sidebar width
-
   return (
-    <>
-      <Navbar />
+    <Box sx={{ display: 'flex', width: '100%', height: '100vh' }}>
+      <Sidebar />
 
-      <Box sx={{ display: 'flex' }}>
-        <Sidebar />
+      <Box sx={{ display: 'flex', flexDirection: 'column', flex:'1' }}>
+        <Box height="63px">
+          <Navbar />
+        </Box>
 
-        <Box
-          component="main"
-          sx={{
-            width: { md: `calc(100vw - ${sidebarWidth}px)` },
-            bgcolor: 'pink',
-            border: '4px solid black',
-            minHeight: 'calc(100vh - 60px)', // subtract navbar height
-            mt: '60px', // navbar height margin-top
-          }}
-        >
+        <Box sx={{
+          backgroundColor: "rgb(246, 246, 246)",
+          flex: 1,
+          overflowY: 'auto',
+        }}>
           <Outlet />
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }
 

@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 function DashboardCards() {
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', width: '840px' }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
       <StatCard
         imageSrc="/assets/images/Users.png"
         title="Users"

@@ -30,7 +30,7 @@ const Sidebar = () => {
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
-          my: 3,
+          my: 2,
           backgroundColor: '#ffffff',
         }}
       >
@@ -49,7 +49,7 @@ const Sidebar = () => {
     },
         }}
       >
-        <List sx={{ m: 1, width: 253 }}>
+        <List sx={{ m: 1, width: 250 }}>
           <SidebarGroup />
         </List>
       </Box>

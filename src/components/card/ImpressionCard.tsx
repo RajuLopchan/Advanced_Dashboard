@@ -7,7 +7,7 @@ import {
   BarElement,
   Tooltip,
 } from "chart.js";
-import { Card, CardContent, Typography, Box } from "@mui/material";
+import { CardContent, Typography, Box } from "@mui/material";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 const ImpressionCard = () => {
   const labels = ["Mon", "Tue", "Wed", "Thu"];
@@ -59,12 +59,13 @@ const ImpressionCard = () => {
     },
   };
   return (
-    <Card
+    <Box
       sx={{
-        width: "13.5rem",
+        width: "15rem",
         borderRadius: 3,
         border: '1px solid #e0e0e0',
         backgroundColor: 'white',
+        pt:2
       }}
     >
       <CardContent 
@@ -75,11 +76,11 @@ const ImpressionCard = () => {
         >
           Impression
         </Typography>
-        <Box sx={{ height: 118 }}>
+        <Box sx={{ height: 140 }}>
           <Bar data={data} options={options} />
         </Box>
       </CardContent>
-    </Card>
+    </Box>
   );
 };
 export default ImpressionCard;

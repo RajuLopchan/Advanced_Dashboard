@@ -1,17 +1,17 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button} from '@mui/material';
 
 const EarningsCard = () => {
     return (
     <Box
         sx={{
-        py: 1.5,
+        py: 3,
         border: '1px solid #e0e0e0',
         borderRadius: 2.5,
         backgroundColor: 'white',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: "13.5rem",
+        width: "15rem",
         }}
     >
       <Typography

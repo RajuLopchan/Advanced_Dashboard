@@ -6,7 +6,6 @@ import {
   Box,
   Card,
   Button,
-  Input,
 } from '@mui/material';
 import CustomButton from '../components/button/CustomButton';
 import { CloudUpload } from '@mui/icons-material';
@@ -81,6 +80,9 @@ const FormInput = ({ label, name, control, placeholder }: FormInputProps) => (
           placeholder={placeholder}
           variant="outlined"
           size="small"
+          InputProps={{
+          sx: { backgroundColor: "rgb(241, 241, 241)" } // input area only
+          }}
           error={!!fieldState.error}
           helperText={fieldState.error ? fieldState.error.message : ""}
         />
@@ -126,13 +128,12 @@ const onSubmit = (data: FormData) => {
 
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Box
           sx={{
             p: 2,
-            width: 1200,
-            mt: 8,
-            mr: 5,
+            mx:4,
+            width: "100%",
             backgroundColor: 'white',
             borderRadius: 2,
             display: 'flex',
@@ -160,10 +161,10 @@ const onSubmit = (data: FormData) => {
         </Box>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }} mr={7}>
-        <Grid container spacing={3} width={1170} sx={{ justifyContent: 'flex-end', mt: 3 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Grid container spacing={3} width={1170} sx={{ mt:2}}>
           <Grid size={8}>
-            <Card sx={{ p: 3, backgroundColor: 'smoke', borderRadius: 2 }}>
+            <Box sx={{ p: 3, backgroundColor: 'white', borderRadius: 2 }}>
               <Typography variant="h6" sx={{ mb: 1, color: 'black' }}>
                 Personal information
               </Typography>
@@ -181,11 +182,11 @@ const onSubmit = (data: FormData) => {
                   ))}
                 </Grid>
               </form>
-            </Card>
+            </Box>
           </Grid>
 
           <Grid size={4}>
-            <Card sx={{ p: 3, backgroundColor: 'smoke', borderRadius: 2 }}>
+            <Box sx={{ p: 3, backgroundColor: 'white', borderRadius: 2,width:'100%' }}>
               <Typography variant="h6" color="black">
                 Your Photo
               </Typography>
@@ -242,14 +243,14 @@ const onSubmit = (data: FormData) => {
                   Click to upload or drag and drop <br /> SVG, PNG, JPG or GIF <br /> (max size: 800x400px)
                 </Typography>
               </Box>
-            </Card>
+            </Box>
 
-            <Card
+            <Box
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 p: 2.5,
-                backgroundColor: 'smoke',
+                backgroundColor: 'white',
                 borderRadius: 2,
                 mt: 3,
               }}
@@ -270,7 +271,7 @@ const onSubmit = (data: FormData) => {
               >
                 Connected
               </Button>
-            </Card>
+            </Box>
           </Grid>
         </Grid>
       </Box>

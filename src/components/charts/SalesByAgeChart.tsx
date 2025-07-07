@@ -1,5 +1,5 @@
 import { Line } from 'react-chartjs-2';
-import { Box, Typography } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -83,13 +83,14 @@ function SalesByAgeChart() {
   };
 
   return (
-    <Box
+    <Card
       sx={{
         p: 2,
         bgcolor: 'white',
         borderRadius: 2,
         boxShadow: 2,
         height: '430px',
+        marginBottom:"10px",
       }}
     >
       <Typography
@@ -108,7 +109,7 @@ function SalesByAgeChart() {
       <Box sx={{ height: '100%', mt: 2 }}>
         <Line data={data} options={options} />
       </Box>
-    </Box>
+    </Card>
   );
 }
 

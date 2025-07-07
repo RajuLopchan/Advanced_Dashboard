@@ -52,7 +52,7 @@ const GradientBarChart = () => {
         max: 300,
         grid: {
           drawBorder: false,
-          borderDash: [4, 4],
+          borderDash: [2, 2],
           color: "#ffffff66",
         },
         ticks: {
@@ -66,11 +66,11 @@ const GradientBarChart = () => {
   return (
     <Card
       sx={{
-        width: 575,
+        width: 530,
         height: 230,
         borderRadius: 3,
         background: baseTheme.gradients.secondary,
-        p: 3,
+        p: 2,
         boxShadow: "none",
       }}
     >

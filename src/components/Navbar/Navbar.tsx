@@ -30,15 +30,14 @@ const Navbar = () => {
       sx={{
         position: 'fixed',
         top: 0,
-        height: 60,
+        height: "63px",
         width: '100%',
         zIndex: theme.zIndex.appBar,
         display: 'flex',
         alignItems: 'center',
-        pl: '315px', // adjust based on Sidebar width
+        pl: '55px',
         gap: 10,
         backgroundColor: theme.palette.grey[100],
-        boxShadow: theme.shadows[1],
       }}
     >
       <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>

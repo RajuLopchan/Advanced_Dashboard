@@ -28,12 +28,13 @@ export default function EarningsByItemCard() {
       sx={{
         p: 2,
         borderRadius: 2,
-        boxShadow: 1,
+        border: '1px solid #e0e0e0',
+        // boxShadow: 1,
         backgroundColor: 'white',
-        width: '13.5rem',
+        width: '15rem',
       }}
     >
-      <Typography variant="subtitle2" fontWeight="semibold" mb={2} color="rgba(0, 0, 0, 1)">
+      <Typography variant="subtitle2" fontWeight="semibold" mb={3} color="rgba(0, 0, 0, 1)">
         Earnings by item
       </Typography>
 
@@ -43,7 +44,7 @@ export default function EarningsByItemCard() {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            mb: index !== items.length - 1 ? 1 : 0,
+            mb: index !== items.length - 1 ? 2 : 0,
           }}
         >
           <Avatar

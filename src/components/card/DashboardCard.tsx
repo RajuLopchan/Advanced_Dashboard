@@ -1,12 +1,12 @@
-import { Box, Typography} from '@mui/material';
+import { Box, Card, Typography} from '@mui/material';
 import DashboardStatusCard from './DashboardStatusCard';
 import { Description } from '@mui/icons-material';
 import GradientBarChart from '../charts/GradientBarChart';
 function DashboardCard() {
 return (
-    <Box sx={{
+    <Card sx={{
         bgcolor: 'white',
-        p: 2,
+        p: 1,
         borderRadius: 2,
         boxShadow: 2,
     }}>
@@ -40,7 +40,7 @@ return (
         </Box>
         </Box>
         <DashboardStatusCard />
-    </Box>
+    </Card>
 );
 };
 
