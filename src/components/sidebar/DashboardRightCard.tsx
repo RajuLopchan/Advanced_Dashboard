@@ -1,4 +1,4 @@
-import { Box, Card } from '@mui/material';
+import { Box} from '@mui/material';
 import EarningsCard from '../card/EarningCard';
 import ImpressionCard from '../card/ImpressionCard';
 import EarningsByItemCard from '../card/EarningsByItemCard';

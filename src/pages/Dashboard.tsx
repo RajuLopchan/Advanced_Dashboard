@@ -6,7 +6,7 @@ function Dashboard() {
   return (
      <> 
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Grid container spacing={5} display={'flex'}>
+          <Grid container spacing={9} display={'flex'}>
           <Grid size={9}>
           <Box
             sx={{

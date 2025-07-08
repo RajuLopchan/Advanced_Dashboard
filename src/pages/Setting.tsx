@@ -4,7 +4,6 @@ import {
   TextField,
   Avatar,
   Box,
-  Card,
   Button,
 } from '@mui/material';
 import CustomButton from '../components/button/CustomButton';
@@ -13,16 +12,14 @@ import { useForm, Controller } from 'react-hook-form';
 import type { Control } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const schema = z.object({
   fullName: z
     .string()
     .min(1, "Full Name is required")
     .regex(/^[a-zA-Z\s]+$/, "Full Name can only contain letters and spaces"),
-  lastName: z
-    .string()
-    .min(1, "Last Name is required"),
+  lastName: z.string().min(1, "Last Name is required"),
   email: z
     .string()
     .email("Invalid email address")
@@ -34,20 +31,16 @@ const schema = z.object({
     .min(4, "Username must be at least 4 characters")
     .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores"),
   phone: z
-  .string()
-  .regex(/^\+?[0-9\s\-()]+$/, "Invalid phone number format")
-  .refine(val => {
-    const digits = val.replace(/\D/g, '');
-    return digits.length >= 10 && digits.length <= 15;
-  }, {
-    message: "Phone number must be between 10 and 15 digits",
-  }),
-  city: z
     .string()
-    .min(1, "City is required"),
-  country: z
-    .string()
-    .min(1, "Country is required"),
+    .regex(/^\+?[0-9\s\-()]+$/, "Invalid phone number format")
+    .refine(val => {
+      const digits = val.replace(/\D/g, '');
+      return digits.length >= 10 && digits.length <= 15;
+    }, {
+      message: "Phone number must be between 10 and 15 digits",
+    }),
+  city: z.string().min(1, "City is required"),
+  country: z.string().min(1, "Country is required"),
   zip: z
     .string()
     .min(1, "Zip code is required")
@@ -81,7 +74,7 @@ const FormInput = ({ label, name, control, placeholder }: FormInputProps) => (
           variant="outlined"
           size="small"
           InputProps={{
-          sx: { backgroundColor: "rgb(241, 241, 241)" } // input area only
+            sx: { backgroundColor: "rgb(241, 241, 241)" }
           }}
           error={!!fieldState.error}
           helperText={fieldState.error ? fieldState.error.message : ""}
@@ -92,28 +85,56 @@ const FormInput = ({ label, name, control, placeholder }: FormInputProps) => (
 );
 
 const Setting = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [image, setImage] = useState<string>('/assets/images/Profile.svg');
+  const [isHover, setIsHover] = useState(false);
 
-  const inputRef = useRef<HTMLInputElement>(null)
   const { control, handleSubmit, reset } = useForm<FormData>({
-  resolver: zodResolver(schema),
+    resolver: zodResolver(schema),
     mode: "onBlur",
     defaultValues: {
-    fullName: '',
-    lastName: '',
-    email: '',
-    username: '',
-    phone: '',
-    city: '',
-    country: '',
-    zip: '',
-  },
-});
+      fullName: '',
+      lastName: '',
+      email: '',
+      username: '',
+      phone: '',
+      city: '',
+      country: '',
+      zip: '',
+    },
+  });
 
-const onSubmit = (data: FormData) => {
-  console.log(data);
-  reset();
-};
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+    reset();
+  };
 
+  // Handle file upload 
+  const handleFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (reader.result) {
+        setImage(reader.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Handle drag-drop file
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsHover(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  // Handle file input change
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      handleFile(e.target.files[0]);
+    }
+  };
 
   const fields = [
     { label: 'Full Name', name: 'fullName', placeholder: 'Enter first name' },
@@ -132,7 +153,7 @@ const onSubmit = (data: FormData) => {
         <Box
           sx={{
             p: 2,
-            mx:4,
+            mx: 4,
             width: "100%",
             backgroundColor: 'white',
             borderRadius: 2,
@@ -162,7 +183,7 @@ const onSubmit = (data: FormData) => {
       </Box>
 
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Grid container spacing={3} width={1170} sx={{ mt:2}}>
+        <Grid container spacing={3} width={1170} sx={{ mt: 2 }}>
           <Grid size={8}>
             <Box sx={{ p: 3, backgroundColor: 'white', borderRadius: 2 }}>
               <Typography variant="h6" sx={{ mb: 1, color: 'black' }}>
@@ -186,7 +207,7 @@ const onSubmit = (data: FormData) => {
           </Grid>
 
           <Grid size={4}>
-            <Box sx={{ p: 3, backgroundColor: 'white', borderRadius: 2,width:'100%' }}>
+            <Box sx={{ p: 3, backgroundColor: 'white', borderRadius: 2, width: '100%' }}>
               <Typography variant="h6" color="black">
                 Your Photo
               </Typography>
@@ -201,17 +222,22 @@ const onSubmit = (data: FormData) => {
                 }}
               >
                 <Avatar
-                  alt="Anita Cruz"
-                  src="/assets/images/Profile.svg"
+                  alt="User Photo"
+                  src={image}
                   sx={{ width: 48, height: 48 }}
                 />
                 <Box>
                   <Typography variant="body1" color="black">
                     Edit Your Photo
                   </Typography>
-                  <Typography variant="body2" color="black">
-                    Delete Update
-                  </Typography>
+                  <Button
+                    variant="text"
+                    size="small"
+                    color="error"
+                    onClick={() => setImage('/assets/images/Profile.svg')} // Reset image to default on delete
+                  >
+                    Delete
+                  </Button>
                 </Box>
               </Box>
 
@@ -222,25 +248,20 @@ const onSubmit = (data: FormData) => {
                   textAlign: 'center',
                   borderRadius: 1,
                   mt: 2,
+                  backgroundColor: isHover ? 'rgba(108, 118, 211, 0.1)' : 'transparent',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.3s',
                 }}
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  console.log('drag over', e);
-                }}
-                onDragLeave={(e) => {
-                  e.preventDefault();
-                  console.log('drag leave',e);
-                }}
-                onDragEnter={(e) => {
-                  e.preventDefault();
-                  console.log('drag enter',e);
-                }}
+                onDragOver={(e) => { e.preventDefault(); setIsHover(true); }}
+                onDragLeave={(e) => { e.preventDefault(); setIsHover(false); }}
+                onDrop={handleDrop}
                 onClick={() => inputRef.current?.click()}
               >
-                <input ref={inputRef} type="file" accept="image/.png" style={{ display: 'none' }} onChange={(e)=> console.log(e, 'file')}/>
+                <input ref={inputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleChange} />
                 <CloudUpload fontSize="medium" />
                 <Typography variant="body2" sx={{ mt: 1 }}>
-                  Click to upload or drag and drop <br /> SVG, PNG, JPG or GIF <br /> (max size: 800x400px)
+                  Click to upload or drag and drop
+                  <br /> SVG, PNG, JPG or GIF <br /> (max size: 800x400px)
                 </Typography>
               </Box>
             </Box>

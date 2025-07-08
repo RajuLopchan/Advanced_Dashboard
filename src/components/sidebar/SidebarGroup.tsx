@@ -120,6 +120,47 @@ const SidebarGroup = () => {
 
   const navigate = useNavigate();
 
+  // Map of all routes for children and grandchildren
+  const routeMap: Record<string, string> = {
+    // Home sub-items
+    Dashboard: '/dashboard',
+    Analytics: '/analytics',
+
+    // Pages children & grandchildren
+    'Profile Overview': '/pages/profile/overview',
+    Teams: '/pages/profile/teams',
+    'All Project': '/pages/profile/allproject',
+    Reports: '/pages/users/reports',
+    'New User': '/pages/users/newuser',
+    Setting: '/account/setting',
+    Billing: '/account/billing',
+    Invoice: '/account/invoice',
+    Security: '/account/security',
+    General: '/projects/general',
+    Timeline: '/projects/timeline',
+    'New Project': '/projects/newproject',
+    'Pricing Page': '/pages/pricing',
+    Charts: '/pages/charts',
+    Notification: '/pages/notification',
+    Chat: '/pages/chat',
+
+    // Applications children
+    Kanban: '/applications/kanban',
+    Wizard: '/applications/wizard',
+    'Data Table': '/applications/datatable',
+    Calendar: '/applications/calendar',
+
+    // E-commerce children
+    Overview: '/ecommerce/overview',
+    Products: '/ecommerce/products',
+    Orders: '/ecommerce/orders',
+
+    // Authentication children
+    Login: '/auth/login',
+    Register: '/auth/register',
+    'Forgot Password': '/auth/forgot-password',
+  };
+
   const handleGroupClick = (title: string) => {
     setOpenGroup(prev => (prev === title ? null : title));
     setActiveGroup(title);
@@ -137,23 +178,20 @@ const SidebarGroup = () => {
     setActiveChild(null);
   };
 
-  const handleChildClick = (groupTitle: string, submenuLabel: string, childLabel: string) => {
+  const handleChildClick = (groupTitle: string, submenuLabel: string | null, childLabel: string) => {
     setActiveGroup(groupTitle);
     setActiveSubmenu(submenuLabel);
     setActiveChild(childLabel);
 
-    const routeMap: Record<string, string> = {
-      'New Project': '/projects/newproject',
-      'Setting': '/account/setting',
-    };
-
-    if (routeMap[childLabel]) {
-      navigate(routeMap[childLabel]);
+    const path = routeMap[childLabel];
+    if (path) {
+      navigate(path);
     }
   };
 
   return (
     <>
+      {/* Home group */}
       <SidebarItem
         label="Home"
         icon={<HomeIcon />}
@@ -164,23 +202,19 @@ const SidebarGroup = () => {
       />
       <Collapse in={openGroup === 'Home'}>
         <List component="div">
-          {['Dashboard', 'Analytics'].map((sub, index) => (
+          {['Dashboard', 'Analytics'].map((sub) => (
             <SidebarItem
-              key={index}
+              key={sub}
               label={sub}
               nested
               active={activeChild === sub && activeGroup === 'Home'}
-              onClick={() => {
-                setActiveGroup('Home');
-                setActiveSubmenu(null);
-                setActiveChild(sub);
-                navigate(`/${sub.toLowerCase()}`);
-              }}
+              onClick={() => handleChildClick('Home', null, sub)}
             />
           ))}
         </List>
       </Collapse>
 
+      {/* Other groups */}
       {items.map(({ title, children, icon }) => (
         <div key={title}>
           <SidebarItem
@@ -193,25 +227,23 @@ const SidebarGroup = () => {
           />
           <Collapse in={openGroup === title}>
             <List component="div">
-              {children.map((sub, index) => {
+              {children.map((sub) => {
                 if (typeof sub === 'string') {
+                  // simple submenu without grandchildren
                   return (
                     <SidebarItem
-                      key={index}
+                      key={sub}
                       label={sub}
                       nested
                       active={activeChild === sub && activeGroup === title}
-                      onClick={() => {
-                        setActiveGroup(title);
-                        setActiveSubmenu(null);
-                        setActiveChild(sub);
-                      }}
+                      onClick={() => handleChildClick(title, null, sub)}
                     />
                   );
                 } else if (typeof sub === 'object') {
+                  // submenu with grandchildren
                   const isOpen = openSubmenus[title] === sub.label;
                   return (
-                    <div key={index}>
+                    <div key={sub.label}>
                       <SidebarItem
                         label={sub.label}
                         nested
@@ -222,9 +254,9 @@ const SidebarGroup = () => {
                       />
                       <Collapse in={isOpen}>
                         <List component="div">
-                          {sub.children.map((child, cindex) => (
+                          {sub.children.map((child) => (
                             <SidebarItem
-                              key={cindex}
+                              key={child}
                               label={child}
                               nested
                               nestedLevel2

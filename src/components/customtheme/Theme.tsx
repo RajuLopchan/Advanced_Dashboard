@@ -139,7 +139,8 @@ const theme = createTheme(baseTheme, {
         root: ({ theme }: { theme: Theme }) => ({
           borderRadius: "10px",
           height: "48px",
-          width: "330px",
+          // width: "330px",
+         
           backgroundColor: theme.palette.background.default,
           "& fieldset": {
             borderColor: theme.palette.customBackgrounds.border,

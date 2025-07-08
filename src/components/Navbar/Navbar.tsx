@@ -13,13 +13,79 @@ const Navbar = () => {
 
   const getTitle = () => {
     switch (location.pathname) {
+      case "/":
       case "/dashboard":
         return "Dashboard";
       case "/projects/newproject":
         return "New Project";
       case "/analytics":
         return "Analytics";
-      // ➕ Add other routes here as needed
+
+      // Pages
+      case "/pages/profile/profile overview":
+        return "Profile Overview";
+      case "/pages/profile/teams":
+        return "Teams";
+      case "/pages/profile/all project":
+        return "All Project";
+
+      case "/pages/users/reports":
+        return "Reports";
+      case "/pages/users/new user":
+        return "New User";
+
+      case "/account/setting":
+        return "Account Setting";
+      case "/account/billing":
+        return "Billing";
+      case "/account/invoice":
+        return "Invoice";
+      case "/account/security":
+        return "Security";
+
+      case "/projects/general":
+        return "Projects General";
+      case "/projects/timeline":
+        return "Projects Timeline";
+
+      case "/projects/newproject":
+        return "New Project";
+
+      case "/pricing page":
+        return "Pricing Page";
+      case "/charts":
+        return "Charts";
+      case "/notification":
+        return "Notification";
+      case "/chat":
+        return "Chat";
+
+      // Applications
+      case "/applications/kanban":
+        return "Kanban";
+      case "/applications/wizard":
+        return "Wizard";
+      case "/applications/data table":
+        return "Data Table";
+      case "/applications/calendar":
+        return "Calendar";
+
+      // E-commerce
+      case "/ecommerce/overview":
+        return "E-Commerce Overview";
+      case "/ecommerce/products":
+        return "Products";
+      case "/ecommerce/orders":
+        return "Orders";
+
+      // Authentication
+      case "/authentication/login":
+        return "Login";
+      case "/authentication/register":
+        return "Register";
+      case "/authentication/forgot password":
+        return "Forgot Password";
+
       default:
         return "Page";
     }
@@ -28,14 +94,14 @@ const Navbar = () => {
   return (
     <Box
       sx={{
-        position: 'fixed',
+        position: "sticky",
         top: 0,
         height: "63px",
-        width: '100%',
+        width: "100%",
         zIndex: theme.zIndex.appBar,
-        display: 'flex',
-        alignItems: 'center',
-        pl: '55px',
+        display: "flex",
+        alignItems: "center",
+        pl: "55px",
         gap: 10,
         backgroundColor: theme.palette.grey[100],
       }}

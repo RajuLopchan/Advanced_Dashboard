@@ -9,9 +9,7 @@ function MainLayout() {
       <Sidebar />
 
       <Box sx={{ display: 'flex', flexDirection: 'column', flex:'1' }}>
-        <Box height="63px">
           <Navbar />
-        </Box>
 
         <Box sx={{
           backgroundColor: "rgb(246, 246, 246)",
