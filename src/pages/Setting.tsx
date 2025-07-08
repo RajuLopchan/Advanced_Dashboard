@@ -59,7 +59,7 @@ type FormInputProps = {
 
 const FormInput = ({ label, name, control, placeholder }: FormInputProps) => (
   <Grid size={6}>
-    <Typography variant="subtitle2" gutterBottom color="black">
+    <Typography variant="subtitle2" gutterBottom color="black" >
       {label}
     </Typography>
     <Controller
