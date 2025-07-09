@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   Typography,
@@ -13,6 +13,11 @@ import {
   Draggable,
 } from '@hello-pangea/dnd';
 import type { DropResult } from '@hello-pangea/dnd';
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema } from '../components/Validation/ValidationSchema';
+import type { FormSchema } from '../components/Validation/ValidationSchema';
 
 type ColumnType = 'todo' | 'inprogress' | 'done';
 
@@ -37,15 +42,17 @@ export default function KanbanBoard() {
   });
 
   const [formVisible, setFormVisible] = useState(false);
-  const [formData, setFormData] = useState<Omit<Task, 'id'>>({
-    taskName: '',
-    teamName: '',
-    attachments: '',
-    messages: '',
-    daysRemaining: '',
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormSchema>({
+    resolver: zodResolver(formSchema),
+    mode: 'onBlur',
   });
 
-  // ✅ Load tasks from localStorage on mount
   useEffect(() => {
     const storedTasks = localStorage.getItem('kanbanTasks');
     if (storedTasks) {
@@ -53,22 +60,13 @@ export default function KanbanBoard() {
     }
   }, []);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = (data: FormSchema) => {
     const newTask: Task = {
-      ...formData,
+      ...data,
       id: Date.now().toString(),
+      attachments: data.attachments.toString(),
+      messages: data.messages.toString(),
+      daysRemaining: data.daysRemaining.toString(),
     };
 
     const updatedTasks: TasksState = {
@@ -80,21 +78,15 @@ export default function KanbanBoard() {
     localStorage.setItem('kanbanTasks', JSON.stringify(updatedTasks));
 
     setFormVisible(false);
-    setFormData({
-      taskName: '',
-      teamName: '',
-      attachments: '',
-      messages: '',
-      daysRemaining: '',
-    });
+    reset();
   };
 
   const inputs = [
     { placeholder: 'Task Name', name: 'taskName', type: 'text' },
     { placeholder: 'Team Name', name: 'teamName', type: 'text' },
-    { placeholder: 'No. of Attachments', name: 'attachments', type: 'number' },
-    { placeholder: 'No. of Messages', name: 'messages', type: 'number' },
-    { placeholder: 'Days Remaining', name: 'daysRemaining', type: 'number' },
+    { placeholder: 'No. of Attachments', name: 'attachments', type: 'text' },
+    { placeholder: 'No. of Messages', name: 'messages', type: 'text' },
+    { placeholder: 'Days Remaining', name: 'daysRemaining', type: 'text' },
   ];
 
   const columnTitles: { [key in ColumnType]: string } = {
@@ -103,14 +95,10 @@ export default function KanbanBoard() {
     done: 'Done',
   };
 
-  // ✅ Handle drag end event
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
 
-    // If dropped outside any droppable, do nothing
     if (!destination) return;
-
-    // If dropped in the same place, do nothing
     if (
       source.droppableId === destination.droppableId &&
       source.index === destination.index
@@ -123,7 +111,6 @@ export default function KanbanBoard() {
     const [movedTask] = sourceTasks.splice(source.index, 1);
 
     if (sourceCol === destCol) {
-      // ✅ Reorder within same column
       sourceTasks.splice(destination.index, 0, movedTask);
 
       const updated = {
@@ -134,7 +121,6 @@ export default function KanbanBoard() {
       setTasks(updated);
       localStorage.setItem('kanbanTasks', JSON.stringify(updated));
     } else {
-      // ✅ Move between columns
       const destTasks = Array.from(tasks[destCol]);
       destTasks.splice(destination.index, 0, movedTask);
 
@@ -169,7 +155,6 @@ export default function KanbanBoard() {
                   {columnTitles[col]}
                 </Typography>
 
-
                 {col === 'todo' && !formVisible && (
                   <Box
                     sx={{
@@ -193,20 +178,28 @@ export default function KanbanBoard() {
                     <Typography variant="subtitle1" sx={{ mb: 1, textAlign: 'center' }}>
                       Add New Task
                     </Typography>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <Grid container rowSpacing={2}>
                         {inputs.map((input) => (
-                          <Grid key={input.name} size={12}>
+                          <Grid key={input.name} size={12} sx={{ mb: 1 }}>
                             <TextField
                               placeholder={input.placeholder}
-                              name={input.name}
                               type={input.type}
                               variant="outlined"
                               size="small"
-                              required
-                              value={formData[input.name as keyof typeof formData]}
-                              onChange={handleChange}
+                              fullWidth
+                              {...register(input.name as keyof FormSchema)}
+                              error={!!errors[input.name as keyof FormSchema]}
                             />
+                            {errors[input.name as keyof FormSchema] && (
+                              <Typography
+                                variant="caption"
+                                color="error"
+                                sx={{ mt: 0.2, ml: 1 }}
+                              >
+                                {errors[input.name as keyof FormSchema]?.message}
+                              </Typography>
+                            )}
                           </Grid>
                         ))}
                         <Grid size={12}>
