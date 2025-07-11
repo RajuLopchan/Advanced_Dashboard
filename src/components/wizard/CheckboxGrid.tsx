@@ -14,7 +14,7 @@ function CheckboxGrid() {
   };
 
   return (
-    <Grid container spacing={3} width={'80%'} marginX={'auto'}>
+    <Grid container spacing={3} width={'85%'} marginX={'auto'}>
       {options.map((label, index) => {
         const key = `${label}-${index}` 
         const isSelected = selected.includes(key);

@@ -1,11 +1,11 @@
-import { Box, Avatar, Typography, Grid, Card} from "@mui/material";
+import { Box, Avatar, Typography, Grid} from "@mui/material";
 import FormHeader from "./FormHeader";
 import Textfield from "./Textfield";
 
 const About = () => {
   return (
     <>
-    <Card sx={{ p: 3, borderRadius: 2, width:'50%', marginX: 'auto', backgroundColor: 'white',mt:2}}>
+    
       <Box sx={{mb:2,textAlign:'center'}}>
       <FormHeader
       title="Let’s start with the basic information"
@@ -29,7 +29,7 @@ const About = () => {
         </Box>
       </Box>
       <form>
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
             <Grid size={6}>
               <Textfield label="First name" placeholder="Kame" name="firstName" />
             </Grid>
@@ -52,7 +52,7 @@ const About = () => {
         </Grid>
 
       </form>
-   </Card>
+
     </>
   );
 };

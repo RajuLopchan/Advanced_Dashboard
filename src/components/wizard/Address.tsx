@@ -1,11 +1,10 @@
-import { Box, Card,Grid} from "@mui/material";
+import { Box, Grid} from "@mui/material";
 import FormHeader from "./FormHeader";
 import Textfield from "./Textfield";
 
 const Address = () => {
   return (
     <>
-    <Card sx={{ p: 3, borderRadius: 2, width:'50%', marginX: 'auto', backgroundColor: 'white',mt:2}}>
       <Box sx={{mb:2,textAlign:'center'}}>
       <FormHeader
       title="What are you doing? (checkboxes)"
@@ -33,7 +32,6 @@ const Address = () => {
         </Grid>
 
       </form>
-   </Card>
     </>
   );
 };

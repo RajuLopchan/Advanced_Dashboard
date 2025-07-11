@@ -14,9 +14,8 @@ const CheckboxCard: React.FC<CheckboxCardProps> = ({ label, checked, onClick }) 
       sx={{
         cursor: "pointer",
         textAlign: "center",
-        p: 1.5,
+        p: 1,
         border: checked ? "2px solid #6c63ff" : "grey",
-        // boxShadow: 2,
         backgroundColor:"white",
         borderRadius: 2,
 
