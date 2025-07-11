@@ -16,16 +16,16 @@ import PricingPage from '../../pages/PricingPage';
 import Charts from '../../pages/Charts';
 import Notification from '../../pages/Notification';
 import Chat from '../../pages/Chat';
-import Kanban from '../../pages/Kanban';
-import Wizard from '../../pages/Wizard';
-import DataTable from '../../pages/DataTable';
-import Calendar from '../../pages/Calander';
-import EcommerceOverview from '../../pages/EcommerceOverview';
-import Products from '../../pages/Products';
-import Orders from '../../pages/Orders';
-import Login from '../../pages/Login';
-import Register from '../../pages/Register';
-import ForgotPassword from '../../pages/ForgetPassword';
+import Kanban from '../../pages/applications/Kanban';
+import Wizard from '../../pages/applications/Wizard';
+import DataTable from '../../pages/applications/DataTable';
+import Calendar from '../../pages/applications/Calander';
+import EcommerceOverview from '../../pages/e-commerce/EcommerceOverview';
+import Products from '../../pages/e-commerce/Products';
+import Orders from '../../pages/e-commerce/Orders';
+import Login from '../../pages/authentication/Login';
+import Register from '../../pages/authentication/Register';
+import ForgotPassword from '../../pages/authentication/ForgetPassword';
 import AccountSetting from '../../pages/AccountSetting';
 
 const publicRoutes = [

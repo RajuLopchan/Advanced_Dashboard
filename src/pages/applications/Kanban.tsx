@@ -16,8 +16,8 @@ import type { DropResult } from '@hello-pangea/dnd';
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema } from '../components/Validation/ValidationSchema';
-import type { FormSchema } from '../components/Validation/ValidationSchema';
+import { formSchema } from '../../components/Validation/ValidationSchema';
+import type { FormSchema } from '../../components/Validation/ValidationSchema';
 
 type ColumnType = 'todo' | 'inprogress' | 'done';
 
@@ -50,7 +50,7 @@ export default function KanbanBoard() {
     formState: { errors },
   } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    mode: 'onBlur',
+    mode: "onChange",
   });
 
   useEffect(() => {
@@ -187,7 +187,7 @@ export default function KanbanBoard() {
                               type={input.type}
                               variant="outlined"
                               size="small"
-                              fullWidth
+                              fullWidth 
                               {...register(input.name as keyof FormSchema)}
                               error={!!errors[input.name as keyof FormSchema]}
                             />
