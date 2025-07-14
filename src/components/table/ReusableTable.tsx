@@ -28,27 +28,29 @@ function ReusableTable<T>({ data, columns }: ReusableTableProps<T>) {
 
   return (
     <Table>
-    <TableHead>
-  {table.getHeaderGroups().map(headerGroup => (
-    <TableRow key={headerGroup.id}>
-      {headerGroup.headers.map(header => (
-        <TableCell
-          key={header.id}
-          sx={{ color: 'black', fontWeight: 'semibold', fontSize: '1.2rem' }}
-        >
-          {flexRender(header.column.columnDef.header, header.getContext())}
-        </TableCell>
-      ))}
-    </TableRow>
-  ))}
-</TableHead>
+      <TableHead>
+        {table.getHeaderGroups().map(headerGroup => (
+          <TableRow key={headerGroup.id}>
+            {headerGroup.headers.map(header => (
+              <TableCell
+                key={header.id}
+                sx={{ color: 'black', fontWeight: 'semibold', fontSize: '1.2rem' }}
+              >
+                {flexRender(header.column.columnDef.header, header.getContext())}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableHead>
 
       <TableBody>
         {table.getRowModel().rows.map(row => (
           <TableRow key={row.id}>
             {row.getVisibleCells().map(cell => (
-              <TableCell key={cell.id}
-                sx={{ color: 'rgba(64, 63, 63, 0.6)', fontSize: '1rem' }}>
+              <TableCell
+                key={cell.id}
+                sx={{ color: 'rgba(64, 63, 63, 0.6)', fontSize: '1rem' }}
+              >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </TableCell>
             ))}

@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import ReusableTable from '../../components/table/ReusableTable';
+import PaginatedTable from '../../components/table/PaginatedTable';
 import { Box, Typography, Avatar, Card } from '@mui/material';
 import type { ColumnDef } from '@tanstack/react-table';
 
@@ -13,6 +15,13 @@ type Employee = {
 };
 
 const DataTable = () => {
+  const [page, setPage] = useState(0);
+  const rowsPerPage = 7;
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
   const data: Employee[] = [
     {
       avatar: '/assets/images/Profile.svg',
@@ -32,7 +41,7 @@ const DataTable = () => {
       salary: '$433,060',
       startDate: '22/5/2011',
     },
-      {
+    {
       avatar: '/assets/images/AboutProfile.png',
       name: 'Ashton Cox',
       position: 'Technical Author',
@@ -41,7 +50,7 @@ const DataTable = () => {
       salary: '$320,800',
       startDate: '22/5/2011',
     },
-      {
+    {
       avatar: '/assets/images/avatar.png',
       name: 'Tiger Nixon',
       position: 'Javascript Developer',
@@ -50,7 +59,7 @@ const DataTable = () => {
       salary: '$433,060',
       startDate: '22/5/2011',
     },
-      {
+    {
       avatar: '/assets/images/Profile.svg',
       name: 'Brielle Williamson',
       position: 'Integration Specialist',
@@ -59,7 +68,7 @@ const DataTable = () => {
       salary: '$433,060',
       startDate: '22/5/2011',
     },
-       {
+    {
       avatar: '/assets/images/avatar.png',
       name: 'Ashton Cox',
       position: 'Technical Author',
@@ -68,7 +77,7 @@ const DataTable = () => {
       salary: '$320,800',
       startDate: '22/5/2011',
     },
-      {
+    {
       avatar: '/assets/images/AboutProfile.png',
       name: 'Tiger Nixon',
       position: 'System Architect',
@@ -77,13 +86,31 @@ const DataTable = () => {
       salary: '$170,750',
       startDate: '22/5/2009',
     },
-       {
+    {
       avatar: '/assets/images/avatar.png',
       name: 'Brielle Williamson',
       position: 'Integration Specialist',
       age: 19,
       office: 'Berlin',
       salary: '$433,060',
+      startDate: '22/5/2011',
+    },
+    {
+      avatar: '/assets/images/AboutProfile.png',
+      name: 'Ashton Cox',
+      position: 'Technical Author',
+      age: 66,
+      office: 'Edinburgh',
+      salary: '$320,800',
+      startDate: '22/5/2011',
+    },
+    {
+      avatar: '/assets/images/AboutProfile.png',
+      name: 'Ashton Cox',
+      position: 'Technical Author',
+      age: 66,
+      office: 'Edinburgh',
+      salary: '$320,800',
       startDate: '22/5/2011',
     },
   ];
@@ -125,9 +152,17 @@ const DataTable = () => {
     },
   ];
 
+  const paginatedData = data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
-    <Card sx={{ m: 3,background:'white' }}>
-      <ReusableTable data={data} columns={columns} />
+    <Card sx={{ m: 2, background: 'white' }}>
+      <ReusableTable data={paginatedData} columns={columns} />
+      <PaginatedTable
+        count={data.length}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+      />
     </Card>
   );
 };
