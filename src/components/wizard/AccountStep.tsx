@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import FormHeader from "./FormHeader";
 import CheckboxGrid from "./CheckboxGrid";
 
-const Account = () => {
+const AccountStep = () => {
   return (
     <>
       <Box sx={{ mb: 2, textAlign: "center" }}>
@@ -20,4 +20,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default AccountStep;

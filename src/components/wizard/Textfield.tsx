@@ -25,7 +25,7 @@ const Textfield: React.FC<TextfieldProps> = ({
       <TextField
         {...register(name)}
         placeholder={placeholder}
-        name={name}
+        // name={name}
         variant={variant}
         type={type}
         fullWidth

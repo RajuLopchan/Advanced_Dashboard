@@ -2,7 +2,7 @@ import { Box, Avatar, Typography, Grid } from "@mui/material";
 import FormHeader from "./FormHeader";
 import Textfield from "./Textfield";
 
-const About = () => {
+const AboutStep = () => {
   return (
     <>
       <Box sx={{ mb: 2, textAlign: "center" }}>
@@ -71,4 +71,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutStep;

@@ -14,19 +14,22 @@ import {
   type ErrorOption,
   type Path,
 } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowBackRounded, ArrowForwardRounded } from "@mui/icons-material";
 
 import { aboutSchema, accountSchema, addressSchema } from "../../components/wizard/Schemas";
-import About from "../wizard/AboutStep";
-import Account from "../wizard/AccountStep";
-import Address from "../wizard/AddressStep";
+import AboutStep from "../wizard/AboutStep";
+import AccountStep from "../wizard/AccountStep";
+import AddressStep from "../wizard/AddressStep";
 import StepperHeader from "../../components/wizard/StepperHeader";
 import useStepper from "../../components/hooks/UseStepper";
 
+const combinedSchema = aboutSchema.merge(accountSchema).merge(addressSchema);
+
 const steps = [
-  { label: "About", schema: aboutSchema, element: <About /> },
-  { label: "Account", schema: accountSchema, element: <Account /> },
-  { label: "Address", schema: addressSchema, element: <Address /> },
+  { label: "About", schema: aboutSchema, element: <AboutStep /> },
+  { label: "Account", schema: accountSchema, element: <AccountStep /> },
+  { label: "Address", schema: addressSchema, element: <AddressStep /> },
 ];
 
 function handleZodErrors<TFieldValues extends FieldValues>(
@@ -47,18 +50,8 @@ function handleZodErrors<TFieldValues extends FieldValues>(
 const HookStepForm = () => {
   const methods = useForm({
     mode: "onChange",
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      dateOfBirth: "",
-      city: "",
-      postalCode: "",
-      activities: [],
-      streetname: "",
-      streetno: "",
-      country: "",
-    },
+    resolver: zodResolver(combinedSchema),
+
   });
 
   const { handleSubmit, getValues, setError, reset } = methods;
@@ -71,7 +64,7 @@ const HookStepForm = () => {
     try {
       await currentSchema.parseAsync(getValues());
       if (isLastStep) {
-        handleSubmit(onSubmit)(); // triggers RHF validation + submission
+        handleSubmit(onSubmit)();
       } else {
         nextStep();
       }
@@ -85,7 +78,7 @@ const HookStepForm = () => {
   const onSubmit = (data: FieldValues) => {
     console.log("Final form submission data:", data);
     setSuccessOpen(true);
-    reset(); // 🆕 resets the form after submission
+    reset();
   };
 
   const handleClose = () => {
@@ -104,7 +97,7 @@ const HookStepForm = () => {
             <Box display="flex" justifyContent="flex-end" gap="16px">
               {!isFirstStep && (
                 <Button variant="outlined" onClick={previousStep} startIcon={<ArrowBackRounded />}>
-                  Back
+                  Previous
                 </Button>
               )}
               <Button variant="contained" onClick={handleNext} endIcon={<ArrowForwardRounded />}>
@@ -119,7 +112,7 @@ const HookStepForm = () => {
         open={successOpen}
         autoHideDuration={3000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           Form submitted successfully!

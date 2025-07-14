@@ -2,7 +2,7 @@ import { Box, Grid } from "@mui/material";
 import FormHeader from "./FormHeader";
 import Textfield from "./Textfield";
 
-const Address = () => {
+const AddressStep = () => {
   return (
     <>
       <Box sx={{ mb: 2, textAlign: "center" }}>
@@ -30,4 +30,4 @@ const Address = () => {
   );
 };
 
-export default Address;
+export default AddressStep;

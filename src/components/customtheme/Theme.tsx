@@ -88,7 +88,7 @@ const theme = createTheme(baseTheme, {
           borderRadius: "8px",
           fontWeight: 500,
           height: "46px",
-          width: "330px",
+          // width: "330px",
           fontSize: theme.typography.body1.fontSize,
         }),
         sizeSmall: {
@@ -105,7 +105,7 @@ const theme = createTheme(baseTheme, {
         sizeLarge: {
           fontWeight: 500,
           height: "46px",
-          width: "330px",
+          // width: "330px",
         },
         containedPrimary: ({ theme }: { theme: Theme }) => ({
           background: theme.palette.primary.main,

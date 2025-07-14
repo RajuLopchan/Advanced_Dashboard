@@ -16,9 +16,7 @@ export const aboutSchema = z.object({
 });
 
 export const accountSchema = z.object({
-  activities: z
-    .array(z.string())
-    .min(1, "Select at least one activity"),
+  activities: z.array(z.string()).min(1, "Select at least one activity"),
 });
 
 export const addressSchema = z.object({
@@ -27,3 +25,7 @@ export const addressSchema = z.object({
   city: z.string().min(1, "City is required"),
   country: z.string().min(1, "Country is required"),
 });
+
+export const combinedSchema = aboutSchema
+  .merge(accountSchema)
+  .merge(addressSchema);
