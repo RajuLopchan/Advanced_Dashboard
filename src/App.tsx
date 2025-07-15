@@ -1,12 +1,14 @@
-
 import { BrowserRouter as Router } from 'react-router-dom';
-import AppRoutes from './components/routes/AppRoutes'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import AppRoutes from './components/routes/AppRoutes';
 
 function App() {
   return (
-    <Router>
-     <AppRoutes />
-    </Router>
+    <GoogleOAuthProvider clientId="1010661446468-j6stho9jprjshqos1hdanqtrbk6i4r8a.apps.googleusercontent.com">
+      <Router>
+        <AppRoutes />
+      </Router>
+    </GoogleOAuthProvider>
   );
 }
 

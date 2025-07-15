@@ -1,18 +1,18 @@
 import React from 'react';
 import { TablePagination } from '@mui/material';
-
 type TablePaginationProps = {
   count: number;
   page: number;
   rowsPerPage: number;
   onPageChange: (event: unknown, newPage: number) => void;
+  onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
-
 const PaginatedTable: React.FC<TablePaginationProps> = ({
   count,
   page,
   rowsPerPage,
   onPageChange,
+  onRowsPerPageChange,
 }) => {
   return (
     <TablePagination
@@ -21,10 +21,9 @@ const PaginatedTable: React.FC<TablePaginationProps> = ({
       page={page}
       rowsPerPage={rowsPerPage}
       onPageChange={onPageChange}
-      rowsPerPageOptions={[]}
-      labelRowsPerPage=""
+      onRowsPerPageChange={onRowsPerPageChange}
+      rowsPerPageOptions={[ 7, 14, 21]}
     />
   );
 };
-
 export default PaginatedTable;

@@ -27,7 +27,7 @@ function Register() {
               sx={{ mb: 1 }}
           />
            <Typography color="text.secondary" mb={2}  fontSize={'0.8rem'}>
-          You are agreeing to the <a href="">Terms of Services</a> <br /> and <a href="">Privacy Policy</a>
+          You are agreeing to the <a href=""style={{ textDecoration: 'none',fontSize: '0.9rem' }}>Terms of Services</a> <br /> and <a href=""style={{ textDecoration: 'none',fontSize: '0.9rem' }}>Privacy Policy</a>
         </Typography>
 
          <Button
@@ -41,7 +41,7 @@ function Register() {
         <Typography color="text.secondary" mb={2}  fontSize={'0.8rem'}>
        
           <Box sx={{ display: 'flex', gap: 2 }}>
-          Already a member? <a href="">Sign in</a>
+          Already a member? <a href=""style={{ textDecoration: 'none',fontSize: '0.9rem' }}>Sign in</a>
            </Box>
         </Typography>
       </Grid>

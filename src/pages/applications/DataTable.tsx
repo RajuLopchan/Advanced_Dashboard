@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ReusableTable from '../../components/table/ReusableTable';
 import PaginatedTable from '../../components/table/PaginatedTable';
 import { Box, Typography, Avatar, Card } from '@mui/material';
@@ -16,10 +16,15 @@ type Employee = {
 
 const DataTable = () => {
   const [page, setPage] = useState(0);
-  const rowsPerPage = 7;
+  const [rowsPerPage, setRowsPerPage] = useState(7);
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   const data: Employee[] = [
@@ -95,7 +100,7 @@ const DataTable = () => {
       salary: '$433,060',
       startDate: '22/5/2011',
     },
-    {
+     {
       avatar: '/assets/images/AboutProfile.png',
       name: 'Ashton Cox',
       position: 'Technical Author',
@@ -104,7 +109,7 @@ const DataTable = () => {
       salary: '$320,800',
       startDate: '22/5/2011',
     },
-    {
+     {
       avatar: '/assets/images/AboutProfile.png',
       name: 'Ashton Cox',
       position: 'Technical Author',
@@ -162,6 +167,7 @@ const DataTable = () => {
         page={page}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Card>
   );

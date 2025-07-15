@@ -44,8 +44,14 @@ function ReusableTable<T>({ data, columns }: ReusableTableProps<T>) {
       </TableHead>
 
       <TableBody>
-        {table.getRowModel().rows.map(row => (
-          <TableRow key={row.id}>
+        {table.getRowModel().rows.map((row,index) => (
+          <TableRow key={row.id}
+          sx={{
+            backgroundColor: index % 2 === 0 ? '#f3f3f3ff' : 'white',
+            '&:hover': {
+          backgroundColor: '#d4d9e6ff', 
+          cursor: 'pointer',          
+            },  }}>
             {row.getVisibleCells().map(cell => (
               <TableCell
                 key={cell.id}
