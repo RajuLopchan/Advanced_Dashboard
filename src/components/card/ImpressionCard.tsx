@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import theme from "../customtheme/Theme";
+import theme from "../../customtheme/Theme";
 import {
   Chart as ChartJS,
   CategoryScale,

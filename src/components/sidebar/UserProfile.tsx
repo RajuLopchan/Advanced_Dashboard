@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography, IconButton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import theme from '../customtheme/Theme';
+import theme from '../../customtheme/Theme';
 
 const UserProfile = () => {
 

@@ -1,65 +1,26 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useGoogleAuth } from "../../googleAuth/useGoogleAuth";
+import CustomButton from "../../components/customButton/CustomButton";
+import CustomTextField from "../../components/customTextfield/CustomTextfield";
+import asioxInstance from "../../../axiosInstance";
+import FormWrapper from "../../authForm/FormWrapper";
+import { Link } from "react-router-dom";
 
-import { useGoogleLogin } from "@react-oauth/google";
-
-import {
-  Grid,
-  TextField,
-  Typography,
-  Button,
-  Box,
-  FormControl,
-  FormHelperText,
-} from "@mui/material";
-
-const schema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
-});
-
-type LoginForm = z.infer<typeof schema>;
+import { Grid, Typography, Box } from "@mui/material";
+import theme from "../../customtheme/Theme";
 
 function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors},
-  } = useForm<LoginForm>({
-    resolver: zodResolver(schema),
-  });
+  const googleLogin = useGoogleAuth();
 
-  const googleLogin = useGoogleLogin({
-  onSuccess: tokenResponse => {
-    console.log("Google login success", tokenResponse);
-    // Save access_token to localStorage
-    localStorage.setItem("token", tokenResponse.access_token);
-    alert("Google login successful!");
-  },
-  onError: () => {
-    alert("Google login failed");
-  },
-});
-
-  const onSubmit = async (data: LoginForm) => {
+  const handleSubmit = async (data: FormData) => {
     try {
-      const res = await fetch("https://fakestoreapi.com/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      console.log(res, 'login Response');
-
-    const result = await res.json();
-    if (!res.ok) throw new Error();
-
-    localStorage.setItem("token", result.token);
-    alert("Login successful!");
-   }    catch {
-    alert("Login failed");
-  }
+      const res = await asioxInstance.post("/auth/login", data);
+      console.log("Login response:", res);
+      localStorage.setItem("token", res.data.token);
+      alert("Login successful!");
+    } catch (error: any) {
+      console.error("Login error:", error);
+      alert(error.response?.data?.error || "Login failed");
+    }
   };
 
   return (
@@ -67,128 +28,86 @@ function Login() {
       p={4}
       container
       spacing={4}
-      width="55%"
+      width="60%"
       mx="auto"
       mt={4}
       sx={{ borderRadius: 2, backgroundColor: "white" }}
     >
       <Grid size={6}>
-        <Typography
-          variant="h4"
-          gutterBottom
-          color="rgba(60, 59, 59, 1)"
-          fontSize="1.5rem"
-        >
-          Login
-        </Typography>
-        <Typography color="text.secondary" mb={2} fontSize="0.8rem">
-          How do i get started lorem ipsum dolor at?
-        </Typography>
-
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <FormControl fullWidth sx={{ mb: 1 }} error={!!errors.username}>
-            <TextField
-              placeholder="Username"
-              {...register("username")}
-              error={!!errors.username}
-            />
-            <FormHelperText>{errors.username?.message}</FormHelperText>
-          </FormControl>
-
-          <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.password}>
-            <TextField
-              type="password"
-              placeholder="Password"
-              {...register("password")}
-              error={!!errors.password}
-            />
-            <FormHelperText>{errors.password?.message}</FormHelperText>
-          </FormControl>
-
+        <Box width={"85%"} height={"60%"} mx="auto" my={4}>
           <Typography
-            color="text.secondary"
-            mb={2}
-            fontSize="0.8rem"
-            textAlign="end"
+            variant="h4"
+            gutterBottom
+            color="rgba(60, 59, 59, 1)"
+            fontSize="1.5rem"
           >
-            <a href="" style={{ textDecoration: "none", fontSize: "1rem" }}>
-              Forgot password
-            </a>
+            Login
           </Typography>
 
-          <Button
-            fullWidth
-            variant="contained"
-            size="large"
-            sx={{ mb: 2.5, py: 1.5 }}
-            type="submit"
-          >
-            Sign in
-          </Button>
-        </form>
+          <Typography color="text.secondary" mb={2} fontSize="0.8rem">
+            How do I get started lorem ipsum dolor at?
+          </Typography>
 
-       <Button
-  fullWidth
-  variant="outlined"
-  size="large"
-  sx={{
-    mb: 2.5,
-    py: 1.5,
-    borderRadius: 5,
-    borderColor: "rgba(60, 59, 59, 1)",
-    color: "rgba(60, 59, 59, 1)",
-  }}
-  startIcon={
-    <Box
-      component="img"
-      src="/assets/images/Googlee.svg"
-      alt="Google"
-      sx={{ width: 20, height: 20 }}
-    />
-  }
-  onClick={() => googleLogin()}
->
-  Sign in with Google
-</Button>
+          <FormWrapper onSubmit={handleSubmit}>
+            <CustomTextField label="Username" name="username" />
+            <CustomTextField label="Password" name="password" type="password" />
 
+            <Typography
+              color="text.secondary"
+              mb={2}
+              fontSize="0.8rem"
+              textAlign="end"
+            >
+              <Link
+                to="/register"
+                style={{ textDecoration: "none", fontSize: "0.9rem" }}
+              >
+                Forgot Password
+              </Link>
+            </Typography>
 
-        <Button
-          fullWidth
-          variant="outlined"
-          size="large"
-          sx={{
-            mb: 2.5,
-            py: 1.5,
-            borderRadius: 5,
-            borderColor: "rgba(60, 59, 59, 1)",
-            color: "rgba(60, 59, 59, 1)",
-          }}
-          startIcon={
-            <Box
-              component="img"
-              src="/assets/images/Facebook.svg"
-              alt="Facebook"
-              sx={{ width: 20, height: 20 }}
+            <CustomButton
+              label="Sign in"
+              size="large"
+              fullWidth
+              variant="contained"
+              type="submit"
+              sx={{ mb: 2.5, borderRadius: 2 }}
             />
-          }
-        >
-          Sign in with Facebook
-        </Button>
 
-        <Typography color="text.secondary" mb={2} fontSize="0.8rem">
-          <Box sx={{ display: "flex", gap: 2 }}>
-            Don’t have an account.{" "}
-            <a href="" style={{ textDecoration: "none", fontSize: "0.9rem" }}>
-              Sign up
-            </a>
-          </Box>
-        </Typography>
+            <CustomButton
+              label="Sign in with Google"
+              size="large"
+              fullWidth
+              variant="outlined"
+              imageSrc="/assets/images/Googlee.svg"
+              sx={{
+                borderRadius: 5,
+                borderColor: theme.palette.text.secondary,
+                color: "rgba(60, 59, 59, 1)",
+                mb: 2.5,
+              }}
+              onClick={() => googleLogin()}
+            />
+            <Box sx={{ display: "flex", gap: 1.5, justifyContent: "center" }}>
+              <Typography color="text.secondary" mb={2} fontSize="0.8rem">
+                Don’t have an account?
+              </Typography>
+              <Link
+                to="/auth/register"
+                style={{ textDecoration: "none", fontSize: "0.9rem" }}
+              >
+                Sign up
+              </Link>
+            </Box>
+          </FormWrapper>
+        </Box>
       </Grid>
 
       <Grid size={6}>
         <img
           src="/assets/images/LoginFrame.svg"
-          alt=""
+          alt="Login illustration"
           width="100%"
           height="100%"
         />

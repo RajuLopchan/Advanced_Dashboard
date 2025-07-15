@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 import type { Theme } from "@mui/material/styles";
 
-// 🔧 Extend MUI Theme types
+
 declare module "@mui/material/styles" {
   interface Palette {
     customBackgrounds: {
@@ -34,7 +34,6 @@ declare module "@mui/material/styles" {
   }
 }
 
-// ✅ Define your base theme tokens
 const baseTheme = {
   palette: {
     primary: { main: "#6E39CB" },
@@ -78,34 +77,22 @@ const baseTheme = {
   },
 };
 
-// ✅ Create theme with component customizations
 const theme = createTheme(baseTheme, {
   components: {
     MuiButton: {
       styleOverrides: {
-        root: ({ theme }: { theme: Theme }) => ({
+        root: () => ({
           textTransform: "none",
-          borderRadius: "8px",
-          fontWeight: 500,
-          height: "46px",
-          // width: "330px",
-          fontSize: theme.typography.body1.fontSize,
         }),
         sizeSmall: {
           fontSize: "12.64px",
-          height: "32px",
-          width: "100px",
           borderRadius: "4px",
         },
         sizeMedium: ({ theme }: { theme: Theme }) => ({
           fontSize: theme.typography.body1.fontSize,
-          height: "46px",
-          width: "169px",
         }),
         sizeLarge: {
-          fontWeight: 500,
-          height: "46px",
-          // width: "330px",
+          fontWeight: 300,
         },
         containedPrimary: ({ theme }: { theme: Theme }) => ({
           background: theme.palette.primary.main,
@@ -138,8 +125,6 @@ const theme = createTheme(baseTheme, {
       styleOverrides: {
         root: ({ theme }: { theme: Theme }) => ({
           borderRadius: "10px",
-          height: "48px",
-          // width: "330px",
          
           backgroundColor: theme.palette.background.default,
           "& fieldset": {
@@ -154,7 +139,6 @@ const theme = createTheme(baseTheme, {
           },
         }),
         input: ({ theme }: { theme: Theme }) => ({
-          padding: "12px 14px",
           fontSize: theme.typography.body2.fontSize,
           color: theme.palette.text.primary,
           "&::placeholder": {

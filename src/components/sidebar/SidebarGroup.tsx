@@ -16,7 +16,7 @@ import {
   ExpandMore,
   ExpandLess,
 } from '@mui/icons-material';
-import baseTheme from '../customtheme/Theme';
+import baseTheme from '../../customtheme/Theme';
 import { useNavigate } from 'react-router-dom';
 
 type SidebarItemProps = {

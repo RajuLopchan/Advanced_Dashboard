@@ -6,7 +6,7 @@ import {
   Box,
   Button,
 } from '@mui/material';
-import CustomButton from '../components/button/CustomButton';
+import CustomButton from '../components/customButton/CustomButton';
 import { CloudUpload } from '@mui/icons-material';
 import { useForm, Controller } from 'react-hook-form';
 import type { Control } from 'react-hook-form';

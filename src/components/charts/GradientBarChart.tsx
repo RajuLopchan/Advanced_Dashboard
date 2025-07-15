@@ -1,4 +1,4 @@
-import baseTheme from "../customtheme/Theme";
+import baseTheme from "../../customtheme/Theme";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,

@@ -22,7 +22,7 @@ import AboutStep from "../wizard/AboutStep";
 import AccountStep from "../wizard/AccountStep";
 import AddressStep from "../wizard/AddressStep";
 import StepperHeader from "../../components/wizard/StepperHeader";
-import useStepper from "../../components/hooks/UseStepper";
+import useStepper from "../../hooks/UseStepper";
 
 const combinedSchema = aboutSchema.merge(accountSchema).merge(addressSchema);
 
