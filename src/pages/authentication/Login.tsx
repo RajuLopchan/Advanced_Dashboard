@@ -3,20 +3,29 @@ import CustomButton from "../../components/customButton/CustomButton";
 import CustomTextField from "../../components/customTextfield/CustomTextfield";
 import asioxInstance from "../../../axiosInstance";
 import FormWrapper from "../../authForm/FormWrapper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Grid, Typography, Box } from "@mui/material";
 import theme from "../../customtheme/Theme";
 
+type FormData = {
+  username: string;
+  password: string;
+};
+
 function Login() {
+  const navigate = useNavigate();
   const googleLogin = useGoogleAuth();
 
   const handleSubmit = async (data: FormData) => {
     try {
       const res = await asioxInstance.post("/auth/login", data);
       console.log("Login response:", res);
+
       localStorage.setItem("token", res.data.token);
-      alert("Login successful!");
+
+      navigate("/dashboard");
+      
     } catch (error: any) {
       console.error("Login error:", error);
       alert(error.response?.data?.error || "Login failed");
@@ -34,7 +43,7 @@ function Login() {
       sx={{ borderRadius: 2, backgroundColor: "white" }}
     >
       <Grid size={6}>
-        <Box width={"85%"} height={"60%"} mx="auto" my={4}>
+        <Box width="85%" mx="auto" my={4}>
           <Typography
             variant="h4"
             gutterBottom
@@ -45,7 +54,7 @@ function Login() {
           </Typography>
 
           <Typography color="text.secondary" mb={2} fontSize="0.8rem">
-            How do I get started lorem ipsum dolor at?
+            Welcome back, please login to your account.
           </Typography>
 
           <FormWrapper onSubmit={handleSubmit}>
@@ -59,7 +68,7 @@ function Login() {
               textAlign="end"
             >
               <Link
-                to="/register"
+                to="/auth/forgot-password"
                 style={{ textDecoration: "none", fontSize: "0.9rem" }}
               >
                 Forgot Password
@@ -89,6 +98,7 @@ function Login() {
               }}
               onClick={() => googleLogin()}
             />
+
             <Box sx={{ display: "flex", gap: 1.5, justifyContent: "center" }}>
               <Typography color="text.secondary" mb={2} fontSize="0.8rem">
                 Don’t have an account?

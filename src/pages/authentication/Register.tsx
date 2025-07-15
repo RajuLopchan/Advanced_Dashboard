@@ -1,36 +1,44 @@
-import { Grid } from "@mui/material"
-import { TextField, Typography, Button,Box } from "@mui/material"
+import { Grid } from "@mui/material";
+import { TextField, Typography, Button, Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Register() {
   return (
-    <Grid container spacing={4} width={'55%'} marginX={'auto'} marginTop={8} sx={{ borderRadius: 2,backgroundColor: 'white' }} >
+    <Grid
+      container
+      spacing={4}
+      width={"55%"}
+      marginX={"auto"}
+      marginTop={8}
+      sx={{ borderRadius: 2, backgroundColor: "white" }}
+    >
       <Grid size={6} p={2}>
-         <Typography variant="h4"  gutterBottom color='rgba(60, 59, 59, 1)' fontSize={'1.5rem'}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          color="rgba(60, 59, 59, 1)"
+          fontSize={"1.5rem"}
+        >
           Sign up
         </Typography>
-         <Typography color="text.secondary" mb={2}  fontSize={'0.8rem'}>
+        <Typography color="text.secondary" mb={2} fontSize={"0.8rem"}>
           Start your 30-day free trial.
         </Typography>
-         <TextField
-              fullWidth
-              placeholder="Full Name"
-              sx={{ mb: 1 }}
-          />
-          <TextField
-              fullWidth
-              placeholder="Email Address"
-              sx={{ mb: 1 }}
-          />
-          <TextField
-              fullWidth
-              placeholder="Password"
-              sx={{ mb: 1 }}
-          />
-           <Typography color="text.secondary" mb={2}  fontSize={'0.8rem'}>
-          You are agreeing to the <a href=""style={{ textDecoration: 'none',fontSize: '0.9rem' }}>Terms of Services</a> <br /> and <a href=""style={{ textDecoration: 'none',fontSize: '0.9rem' }}>Privacy Policy</a>
+        <TextField fullWidth placeholder="Full Name" sx={{ mb: 1 }} />
+        <TextField fullWidth placeholder="Email Address" sx={{ mb: 1 }} />
+        <TextField fullWidth placeholder="Password" sx={{ mb: 1 }} />
+        <Typography color="text.secondary" mb={2} fontSize={"0.8rem"}>
+          You are agreeing to the{" "}
+          <a href="" style={{ textDecoration: "none", fontSize: "0.9rem" }}>
+            Terms of Services
+          </a>{" "}
+          <br /> and{" "}
+          <a href="" style={{ textDecoration: "none", fontSize: "0.9rem" }}>
+            Privacy Policy
+          </a>
         </Typography>
 
-         <Button
+        <Button
           fullWidth
           variant="contained"
           size="large"
@@ -38,18 +46,28 @@ function Register() {
         >
           Get started
         </Button>
-        <Typography color="text.secondary" mb={2}  fontSize={'0.8rem'}>
-       
-          <Box sx={{ display: 'flex', gap: 2 }}>
-          Already a member? <a href=""style={{ textDecoration: 'none',fontSize: '0.9rem' }}>Sign in</a>
-           </Box>
+        <Typography color="text.secondary" mb={2} fontSize={"0.8rem"}>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            Already a member?{" "}
+            <Link
+              to="/auth/login"
+              style={{ textDecoration: "none", fontSize: "0.9rem" }}
+            >
+              Login
+            </Link>
+          </Box>
         </Typography>
       </Grid>
       <Grid size={6}>
-        <img src="/assets/images/LoginFrame.svg" alt="" width={'100%'} height={'100%'}/>
+        <img
+          src="/assets/images/LoginFrame.svg"
+          alt=""
+          width={"100%"}
+          height={"100%"}
+        />
       </Grid>
     </Grid>
-  )
+  );
 }
 
 export default Register;

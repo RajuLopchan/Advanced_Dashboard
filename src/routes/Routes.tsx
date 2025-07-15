@@ -28,17 +28,21 @@ import Register from '../pages/authentication/Register';
 import ForgotPassword from '../pages/authentication/ForgetPassword';
 import AccountSetting from '../pages/AccountSetting';
 
-const publicRoutes = [
+export const authRoutes = [
+  { path: '/auth/login', element: Login },
+  { path: '/auth/register', element: Register },
+  { path: '/auth/forgot-password', element: ForgotPassword },
+];
+
+export const layoutRoutes = [
   { path: '/', element: Dashboard, index: true },
   { path: '/dashboard', element: Dashboard },
   { path: '/analytics', element: Analytics },
 
- 
   { path: '/projects/newproject', element: NewProjectForm },
   { path: '/projects/general', element: GeneralProject },
   { path: '/projects/timeline', element: Timeline },
 
- 
   { path: '/account/setting', element: Setting },
   { path: '/account/billing', element: Billing },
   { path: '/account/invoice', element: Invoice },
@@ -51,7 +55,6 @@ const publicRoutes = [
 
   { path: '/pages/users/reports', element: Reports },
   { path: '/pages/users/newuser', element: NewUser },
-
 
   { path: '/pages/pricing', element: PricingPage },
   { path: '/pages/charts', element: Charts },
@@ -66,10 +69,6 @@ const publicRoutes = [
   { path: '/ecommerce/overview', element: EcommerceOverview },
   { path: '/ecommerce/products', element: Products },
   { path: '/ecommerce/orders', element: Orders },
-
-  { path: '/auth/login', element: Login },
-  { path: '/auth/register', element: Register },
-  { path: '/auth/forgot-password', element: ForgotPassword },
 ];
 
-export default publicRoutes;
+export const publicRoutes = [];
