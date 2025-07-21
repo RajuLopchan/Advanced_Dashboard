@@ -1,20 +1,18 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import ProtectedRoute from "../routes/ProtectedRoutes"; 
+import ProtectedRoute from "../routes/ProtectedRoutes";
 import { layoutRoutes, authRoutes } from "./Routes";
 
-const AppRoutes = () => {
+const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      {authRoutes.map((route) => (
-        <Route
-          key={route.path}
-          path={route.path}
-          element={React.createElement(route.element)}
-        />
+      {/* Public/auth routes */}
+      {authRoutes.map(({ path, element: Element }) => (
+        <Route key={path} path={path} element={<Element />} />
       ))}
 
+      {/* Protected routes with layout */}
       <Route
         element={
           <ProtectedRoute>
@@ -22,12 +20,12 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       >
-        {layoutRoutes.map((route) => (
+        {layoutRoutes.map(({ path, element: Element, index }) => (
           <Route
-            key={route.path}
-            path={route.path}
-            index={route.index || false}
-            element={React.createElement(route.element)}
+            key={path}
+            path={path}
+            index={index || false}
+            element={<Element />}
           />
         ))}
       </Route>

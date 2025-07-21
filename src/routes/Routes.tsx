@@ -23,6 +23,11 @@ import Calendar from '../pages/applications/Calander';
 import EcommerceOverview from '../pages/e-commerce/EcommerceOverview';
 import Products from '../pages/e-commerce/Products';
 import Orders from '../pages/e-commerce/Orders';
+import ProductList from '../pages/e-commerce/ProductList';
+import ProductDetail from '../pages/e-commerce/ProductDetails';
+import NewProduct from '../pages/e-commerce/NewProduct';
+import EditProduct from '../pages/e-commerce/EditProduct';
+
 import Login from '../pages/authentication/Login';
 import Register from '../pages/authentication/Register';
 import ForgotPassword from '../pages/authentication/ForgetPassword';
@@ -68,6 +73,13 @@ export const layoutRoutes = [
 
   { path: '/ecommerce/overview', element: EcommerceOverview },
   { path: '/ecommerce/products', element: Products },
+
+  { path: '/ecommerce/products/list', element: ProductList },
+  { path: '/ecommerce/products/:id', element: ProductDetail },
+
+  { path: '/ecommerce/products/new', element: NewProduct },
+  { path: '/ecommerce/products/edit', element: EditProduct },
+
   { path: '/ecommerce/orders', element: Orders },
 ];
 

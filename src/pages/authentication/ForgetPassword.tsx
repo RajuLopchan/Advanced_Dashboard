@@ -11,7 +11,7 @@ const ForgotPassword = () => {
         mx: "auto",
         width: 500,
         mt: 10,
-        backgroundColor: "white",
+        backgroundColor: "whitesmoke",
       }}
     >
       <Typography

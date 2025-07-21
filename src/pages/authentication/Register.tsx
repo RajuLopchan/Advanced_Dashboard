@@ -10,7 +10,7 @@ function Register() {
       width={"55%"}
       marginX={"auto"}
       marginTop={8}
-      sx={{ borderRadius: 2, backgroundColor: "white" }}
+      sx={{ borderRadius: 2, backgroundColor: "whitesmoke" }}
     >
       <Grid size={6} p={2}>
         <Typography

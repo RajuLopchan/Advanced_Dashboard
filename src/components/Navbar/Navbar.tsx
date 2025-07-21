@@ -22,16 +22,16 @@ const Navbar = () => {
         return "Analytics";
 
       // Pages
-      case "/pages/profile/profile overview":
+      case "/pages/profile/overview":
         return "Profile Overview";
       case "/pages/profile/teams":
         return "Teams";
-      case "/pages/profile/all project":
+      case "/pages/profile/allproject":
         return "All Project";
 
       case "/pages/users/reports":
         return "Reports";
-      case "/pages/users/new user":
+      case "/pages/users/newuser":
         return "New User";
 
       case "/account/setting":
@@ -48,9 +48,6 @@ const Navbar = () => {
       case "/projects/timeline":
         return "Projects Timeline";
 
-      case "/projects/newproject":
-        return "New Project";
-
       case "/pricing page":
         return "Pricing Page";
       case "/charts":
@@ -65,7 +62,7 @@ const Navbar = () => {
         return "Kanban";
       case "/applications/wizard":
         return "Wizard";
-      case "/applications/data table":
+      case "/applications/datatable":
         return "Data Table";
       case "/applications/calendar":
         return "Calendar";
@@ -73,17 +70,21 @@ const Navbar = () => {
       // E-commerce
       case "/ecommerce/overview":
         return "E-Commerce Overview";
-      case "/ecommerce/products":
-        return "Products";
+      case "/ecommerce/products/list":
+        return "Product List";
+      case "/ecommerce/products/new":
+        return "New Product";
+      case "/ecommerce/products/edit":
+        return "Edit Product";
       case "/ecommerce/orders":
         return "Orders";
 
       // Authentication
-      case "/authentication/login":
+      case "/auth/login":
         return "Login";
-      case "/authentication/register":
+      case "/auth/register":
         return "Register";
-      case "/authentication/forgot password":
+      case "/auth/forgot-password":
         return "Forgot Password";
 
       default:

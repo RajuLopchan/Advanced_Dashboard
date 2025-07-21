@@ -102,7 +102,14 @@ const items = [
   {
     title: 'E-commerce',
     icon: <ShoppingCart />,
-    children: ['Overview', 'Products', 'Orders'],
+    children: [
+      'Overview',
+      {
+        label: 'Products',
+        children: ['Product List', 'New Product', 'Edit Product'],
+      },
+      'Orders',
+    ],
   },
   {
     title: 'Authentication',
@@ -152,7 +159,9 @@ const SidebarGroup = () => {
 
     // E-commerce children
     Overview: '/ecommerce/overview',
-    Products: '/ecommerce/products',
+    'Product List': '/ecommerce/products/list',
+    'New Product': '/ecommerce/products/new',
+    'Edit Product': '/ecommerce/products/edit',
     Orders: '/ecommerce/orders',
 
     // Authentication children
@@ -184,8 +193,11 @@ const SidebarGroup = () => {
     setActiveChild(childLabel);
 
     const path = routeMap[childLabel];
+    console.log(`Navigating to ${path} for ${childLabel}`);
     if (path) {
       navigate(path);
+    } else {
+      console.warn(`No route found for ${childLabel}`);
     }
   };
 

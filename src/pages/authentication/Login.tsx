@@ -5,7 +5,7 @@ import asioxInstance from "../../../axiosInstance";
 import FormWrapper from "../../authForm/FormWrapper";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box} from "@mui/material";
 import theme from "../../customtheme/Theme";
 
 type FormData = {
@@ -33,6 +33,7 @@ function Login() {
   };
 
   return (
+    
     <Grid
       p={4}
       container
@@ -40,7 +41,7 @@ function Login() {
       width="60%"
       mx="auto"
       mt={4}
-      sx={{ borderRadius: 2, backgroundColor: "white" }}
+      sx={{ borderRadius: 2, backgroundColor: "whitesmoke" }}
     >
       <Grid size={6}>
         <Box width="85%" mx="auto" my={4}>
@@ -123,6 +124,7 @@ function Login() {
         />
       </Grid>
     </Grid>
+
   );
 }
 
